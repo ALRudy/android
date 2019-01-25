@@ -1,10 +1,10 @@
 <resources>
 	<string name="app_name">DIGI_MOVE</string>
 	<string name="action_settings">Settings</string>
-	<string name="name">Name</string>
 	<string name="email">email</string>
 	<string name="mdp">mdp</string>
 	<string name="button">Button</string>
+	<!--string name="default_web_client_id">121327465356-a4sta1cs4scf23k6au0q4qvcubc5pn77.apps.googleusercontent.com</string-->
 	<!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
 	<string name="facebook_application_id" translatable="false">1909497705815152</string>
 	<string name="facebook_login_protocol_scheme" translatable="false">fb1909497705815152</string>
