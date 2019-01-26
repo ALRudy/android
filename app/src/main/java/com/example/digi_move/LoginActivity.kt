@@ -185,7 +185,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 				if (task.isSuccessful) {
 
 					showProgress(true)
-					Toast.makeText(this,"got it", Toast.LENGTH_SHORT).show()
 					finish()
 					val intent = Intent(this, accueil::class.java)
 					startActivity(intent)
