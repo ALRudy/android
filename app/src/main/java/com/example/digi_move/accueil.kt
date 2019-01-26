@@ -20,8 +20,8 @@ class accueil : AppCompatActivity() {
 		auth = FirebaseAuth.getInstance()
 		val user = auth.currentUser
 		textView_bienvenu.text = "Salut ${user?.displayName}"
-		Toast.makeText(baseContext, "${user?.email}  ${user?.uid}",
-			Toast.LENGTH_LONG).show()
+		//Toast.makeText(baseContext, "${user?.email}  ${user?.uid}",
+		//	Toast.LENGTH_LONG).show()
 		 Glide.with(this).load(user?.photoUrl).into(nv_icon)
 		btn_deconnexion.setOnClickListener {
 			logout()
