@@ -19,7 +19,7 @@ class accueil : AppCompatActivity() {
 		setContentView(R.layout.activity_accueil)
 		auth = FirebaseAuth.getInstance()
 		val user = auth.currentUser
-		textView_bienvenu.text = user?.email.toString()
+		textView_bienvenu.text = "Salut ${user?.displayName}"
 		Toast.makeText(baseContext, "${user?.email}  ${user?.uid}",
 			Toast.LENGTH_LONG).show()
 		 Glide.with(this).load(user?.photoUrl).into(nv_icon)

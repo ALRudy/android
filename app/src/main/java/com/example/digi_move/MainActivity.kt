@@ -13,6 +13,9 @@ import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,13 +36,13 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         btn_signin.setOnClickListener(){
-	        showProgressDialog()
+
             val email = editText_email.text.toString()
             val mdp = editText_mdp.text.toString()
 
             if (email.isEmpty()or mdp.isEmpty())return@setOnClickListener
 
-            Toast.makeText(this,"${email} ${mdp}",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this,"${email} ${mdp}",Toast.LENGTH_SHORT).show()
 
 	        signin_account(email,mdp)
 
@@ -56,17 +59,25 @@ class MainActivity : AppCompatActivity() {
 	    auth.createUserWithEmailAndPassword(email, mdp)
 		    .addOnCompleteListener {
 			    if (it.isSuccessful) {
-				    // Sign in success, update UI with the signed-in user's information
-				    Toast.makeText(this,"got it",Toast.LENGTH_SHORT).show()
-				    Log.d("auth","success with key = ${it.result?.user?.uid}")
+					showProgressDialog()
 				    finish()
 				    val intent = Intent(this, accueil::class.java)
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 				    startActivity(intent)
 			    } else {
 				    // If sign in fails, display a message to the user.
-				    Toast.makeText(baseContext, "Authentication failed.",
-				    Toast.LENGTH_SHORT).show()
-				    //updateUI(null)
+					try{
+						throw it.exception!!
+					}
+					catch (weakPassword : FirebaseAuthWeakPasswordException){
+						Toast.makeText(this,"veuillez taper un mot de passe plus robuste à plus de 6 caracteres",Toast.LENGTH_SHORT).show()
+					}
+					catch (existmail : FirebaseAuthUserCollisionException ){
+						Toast.makeText(this,"cette adresse est déjà utilisée",Toast.LENGTH_SHORT).show()
+					}
+					catch (malformed : FirebaseAuthInvalidCredentialsException){
+						Toast.makeText(this,"cette adresse mal formée",Toast.LENGTH_SHORT).show()
+					}
 			    }
 
 			    // ...
@@ -81,6 +92,7 @@ class MainActivity : AppCompatActivity() {
 		//updateUI(currentUser)
 		if (currentUser != null){
 			val intent = Intent(this, accueil::class.java)
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 			startActivity(intent)
 			finish()
 		}
@@ -107,10 +119,7 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	fun hideProgressDialog() {
-		if (progressBar.isShown) {
-			progressBar.isIndeterminate = false
-			progressBar.visibility = View.GONE
-		}
+
 		progressBar.isIndeterminate = false
 		progressBar.visibility = View.GONE
 	}

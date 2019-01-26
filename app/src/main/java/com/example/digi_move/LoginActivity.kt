@@ -30,6 +30,7 @@ import android.widget.Toast
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.FirebaseUiException
 import com.firebase.ui.auth.IdpResponse
@@ -39,9 +40,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -92,6 +91,19 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		btn_google_signin.setOnClickListener {
 			signIn_google()
 		}
+		txt_mdp_oublie.setOnClickListener {
+			Snackbar.make(it.rootView, "appuyer ici pour ne rien faire", Snackbar.LENGTH_LONG)
+				.setAction("ICI", null).show()
+		}
+	}
+
+	override fun onBackPressed() {
+		AuthUI.getInstance()
+			.signOut(this)
+			.addOnCompleteListener {
+				finish()
+			}
+		super.onBackPressed()
 	}
 
 	private fun signIn_facebook() {
@@ -101,7 +113,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
 		override fun onSuccess(loginResult: LoginResult) {
 			handleFacebookAccessToken(loginResult.accessToken)
-
+			showProgress(true)
 
 		}
 
@@ -124,9 +136,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		auth.signInWithCredential(credential)
 			.addOnCompleteListener(this) { task ->
 				if (task.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
-					val user = auth.currentUser
-					Toast.makeText(this,"got it", Toast.LENGTH_SHORT).show()
+
 					finish()
 					val intent = Intent(this, accueil::class.java)
 					startActivity(intent)
@@ -173,8 +183,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		auth.signInWithCredential(credential)
 			.addOnCompleteListener(this) { task ->
 				if (task.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
-					val user = auth.currentUser
+
+					showProgress(true)
 					Toast.makeText(this,"got it", Toast.LENGTH_SHORT).show()
 					finish()
 					val intent = Intent(this, accueil::class.java)
@@ -283,19 +293,43 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		auth.signInWithEmailAndPassword(email, mdp)
 			.addOnCompleteListener {
 				if (it.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
-					Toast.makeText(this,"got it", Toast.LENGTH_SHORT).show()
-					finish()
-					val intent = Intent(this, accueil::class.java)
-					startActivity(intent)
+					val user = auth.currentUser
+					showProgress(true)
+					if (user != null) {
+						if(!user.isEmailVerified) {
+							user.sendEmailVerification()
+								.addOnCompleteListener { task ->
+									if (task.isSuccessful) {
+										Toast.makeText(
+											this,
+											"verifier votre mail pour valider votre compte",
+											Toast.LENGTH_SHORT
+										).show()
 
-					Log.d("auth","success with key = ${it.result?.user?.uid}")
+										showProgress(false)
+									}
+								}
+						}
+						else{
+							finish()
+							val intent = Intent(this, accueil::class.java)
+							startActivity(intent)
+						}
+					}
 
 				}
 				else {
-					// If sign in fails, display a message to the user.
-					Toast.makeText(baseContext, "Authentication failed.",
-						Toast.LENGTH_SHORT).show()
+					try{
+						throw it.exception!!
+					}
+					catch (invalidmail : FirebaseAuthInvalidUserException ){
+						Toast.makeText(this,"adresse invalide",Toast.LENGTH_SHORT).show()
+						showProgress(false)
+					}
+					catch (invalidpassword : FirebaseAuthInvalidCredentialsException ){
+						Toast.makeText(this,"le mot de passe ne correspond pas",Toast.LENGTH_SHORT).show()
+						showProgress(false)
+					}
 				}
 
 			}
