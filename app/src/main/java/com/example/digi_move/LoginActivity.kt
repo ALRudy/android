@@ -7,8 +7,6 @@ import android.content.pm.PackageManager
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.app.LoaderManager.LoaderCallbacks
-import android.content.CursorLoader
-import android.content.Loader
 import android.database.Cursor
 import android.net.Uri
 import android.os.AsyncTask
@@ -23,8 +21,8 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
-import android.content.Context
-import android.content.Intent
+import android.content.*
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
 import com.facebook.*
@@ -43,6 +41,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
 
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.content_main.*
 
 /**
  * A login screen that offers login via email/password.
@@ -92,8 +91,17 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			signIn_google()
 		}
 		txt_mdp_oublie.setOnClickListener {
-			Snackbar.make(it.rootView, "appuyer ici pour ne rien faire", Snackbar.LENGTH_LONG)
-				.setAction("ICI", null).show()
+			//Snackbar.make(it.rootView, "appuyer ici pour ne rien faire", Snackbar.LENGTH_LONG)
+			//	.setAction("ICI", null).show()
+			if (!email.text.toString().isEmpty()){
+				auth.sendPasswordResetEmail(email.text.toString())
+					.addOnCompleteListener { task ->
+						if (task.isSuccessful) {
+							Toast.makeText(baseContext, "Email envoyé",
+								Toast.LENGTH_SHORT).show()
+						}
+					}
+			}
 		}
 	}
 
@@ -185,7 +193,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 				if (task.isSuccessful) {
 
 					showProgress(true)
-					Toast.makeText(this,"got it", Toast.LENGTH_SHORT).show()
 					finish()
 					val intent = Intent(this, accueil::class.java)
 					startActivity(intent)
@@ -297,18 +304,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 					showProgress(true)
 					if (user != null) {
 						if(!user.isEmailVerified) {
-							user.sendEmailVerification()
-								.addOnCompleteListener { task ->
-									if (task.isSuccessful) {
-										Toast.makeText(
-											this,
-											"verifier votre mail pour valider votre compte",
-											Toast.LENGTH_SHORT
-										).show()
-
-										showProgress(false)
-									}
-								}
+							validation_dialog(user)
 						}
 						else{
 							finish()
@@ -333,6 +329,47 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 				}
 
 			}
+	}
+
+
+	private fun validation_dialog(user :FirebaseUser){
+		val builder = AlertDialog.Builder(this@LoginActivity)
+
+		builder.setCancelable(false)
+		builder.setTitle("Validation du mail")
+		builder.setMessage("cette adresse n'a pas encore été vérifier, voulez-vous valider ?")
+		builder.setPositiveButton("Oui"){dialog, which ->
+			user.sendEmailVerification()
+				.addOnCompleteListener { task ->
+					if (task.isSuccessful) {
+						Toast.makeText(
+							this,
+							"verifier votre mail pour valider votre compte",
+							Toast.LENGTH_LONG
+						).show()
+
+						showProgress(false)
+					}
+				}
+		}
+
+
+		// Display a negative button on alert dialog
+	/*	builder.setNegativeButton("Vérifier"){dialog,which ->
+			Toast.makeText(applicationContext,"You are not agree.",Toast.LENGTH_SHORT).show()
+		}*/
+
+
+		// Display a neutral button on alert dialog
+		builder.setNeutralButton("Annuler"){_,_ ->
+			showProgress(false)
+		}
+
+		// Finally, make the alert dialog using builder
+		val dialog: AlertDialog = builder.create()
+
+		// Display the alert dialog on app interface
+		dialog.show()
 	}
 
 	private fun isEmailValid(email: String): Boolean {
