@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 						Toast.makeText(this,"cette adresse est déjà utilisée",Toast.LENGTH_SHORT).show()
 					}
 					catch (malformed : FirebaseAuthInvalidCredentialsException){
-						Toast.makeText(this,"cette adresse mal formée",Toast.LENGTH_SHORT).show()
+						Toast.makeText(this,"cette adresse est mal formée",Toast.LENGTH_SHORT).show()
 					}
 			    }
 
