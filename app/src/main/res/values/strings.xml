@@ -24,5 +24,6 @@
 	<string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="mot_de_passe_oubli">mot de passe oublié ?</string>
 	<string name="buttonf">mipfefez</string>
+    <string name="s_inscrire">s\'inscrire ?</string>
 
 </resources>

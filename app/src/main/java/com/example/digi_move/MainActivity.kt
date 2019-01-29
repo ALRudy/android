@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 	    // Initialize Firebase Auth
 	    hideProgressDialog()
 	    auth = FirebaseAuth.getInstance()
+		onStartcheck()
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-	public override fun onStart() {
+	public fun onStartcheck() {
 		super.onStart()
 		// Check if user is signed in (non-null) and update UI accordingly.
 		val currentUser = auth.currentUser

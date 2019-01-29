@@ -20,6 +20,7 @@ class accueil : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_accueil)
 		auth = FirebaseAuth.getInstance()
+		onStartcheck()
 		val user = auth.currentUser
 		textView_bienvenu.text = "Salut ${user?.displayName}"
 		 Glide.with(this).load(user?.photoUrl).into(nv_icon)
@@ -32,7 +33,7 @@ class accueil : AppCompatActivity() {
 			.signOut(this)
 			.addOnCompleteListener {
 				finish()
-				val intent = Intent(this, MainActivity::class.java)
+				val intent = Intent(this, LoginActivity::class.java)
 				startActivity(intent)
 			}
 
@@ -44,14 +45,14 @@ class accueil : AppCompatActivity() {
 				// ...
 			}
 	}
-	public override fun onStart() {
+	public fun onStartcheck() {
 		super.onStart()
 		// Check if user is signed in (non-null) and update UI accordingly.
 		val currentUser = auth.currentUser
 		//updateUI(currentUser)
 		if (currentUser == null) {
 			finish()
-			val intent = Intent(this, MainActivity::class.java)
+			val intent = Intent(this, LoginActivity::class.java)
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 			startActivity(intent)
 		}

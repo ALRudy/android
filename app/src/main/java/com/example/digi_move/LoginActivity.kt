@@ -103,6 +103,12 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 					}
 			}
 		}
+		txt_sinscrire.setOnClickListener {
+			finish()
+			val intent = Intent(this, MainActivity::class.java)
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+			startActivity(intent)
+		}
 	}
 
 	override fun onBackPressed() {
@@ -147,6 +153,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
 					finish()
 					val intent = Intent(this, accueil::class.java)
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 					startActivity(intent)
 				} else {
 					// If sign in fails, display a message to the user.
@@ -195,6 +202,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 					showProgress(true)
 					finish()
 					val intent = Intent(this, accueil::class.java)
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 					startActivity(intent)
 				} else {
 					// If sign in fails, display a message to the user.
@@ -309,6 +317,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 						else{
 							finish()
 							val intent = Intent(this, accueil::class.java)
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 							startActivity(intent)
 						}
 					}

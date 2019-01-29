@@ -64,11 +64,21 @@
 			
 			</android.support.design.widget.TextInputLayout>
 
-            <TextView
-                    android:text="@string/mot_de_passe_oubli"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/txt_mdp_oublie" android:textSize="12sp"
-                    android:textAlignment="center"/>
+			<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<TextView
+						android:text="@string/mot_de_passe_oubli"
+						android:layout_width="168dp"
+						android:layout_height="wrap_content" android:id="@+id/txt_mdp_oublie" android:textSize="12sp"
+						android:textAlignment="center"/>
+				<TextView
+						android:text="@string/s_inscrire"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content" android:id="@+id/txt_sinscrire" android:layout_weight="1"
+						android:textSize="12sp"/>
+			</LinearLayout>
 			<Button
 					android:id="@+id/email_sign_in_button"
 					style="?android:textAppearanceSmall"
