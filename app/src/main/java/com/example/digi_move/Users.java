@@ -10,6 +10,9 @@ public class Users {
     int numero;
     String profile;
 
+    public Users() {
+    }
+
     public Users(String id, String email, String pseudo, String nom, String prenom, String adresse, int numero, String profile) {
         this.id = id;
         this.email = email;

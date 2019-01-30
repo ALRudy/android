@@ -79,7 +79,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			false
 		})
 
-		email_sign_in_button.setOnClickListener { attemptLogin() }
+		email_sign_in_button.setOnClickListener {
+			attemptLogin()
+		}
 		// Configure Google Sign In
 		val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 			.requestIdToken(getString(R.string.default_web_client_id))
@@ -91,6 +93,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			signIn_google()
 		}
 		txt_mdp_oublie.setOnClickListener {
+            val intent = Intent(this, EditionInfoActivity::class.java)
+            startActivity(intent)
 			//Snackbar.make(it.rootView, "appuyer ici pour ne rien faire", Snackbar.LENGTH_LONG)
 			//	.setAction("ICI", null).show()
 			if (!email.text.toString().isEmpty()){

@@ -25,5 +25,8 @@
     <string name="mot_de_passe_oubli">mot de passe oublié ?</string>
 	<string name="buttonf">mipfefez</string>
     <string name="s_inscrire">s\'inscrire ?</string>
+    <string name="name">Name</string>
+	<string name="button3">Button</string>
+	<string name="name2">Name</string>
 
 </resources>
