@@ -28,5 +28,17 @@
     <string name="name">Name</string>
 	<string name="button3">Button</string>
 	<string name="name2">Name</string>
+    <string name="title_activity_principal">PrincipalActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="pseudo">pseudo</string>
+	<string name="prenom">prenom</string>
+	<string name="numero_de_t_l_phone">numero de téléphone</string>
+	<string name="adresse">adresse</string>
+	<string name="nom">nom</string>
+	<string name="todo">TODO</string>
 
 </resources>

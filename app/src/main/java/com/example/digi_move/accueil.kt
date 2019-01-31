@@ -9,24 +9,63 @@ import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_accueil.*
 
 class accueil : AppCompatActivity() {
 
 	private lateinit var auth: FirebaseAuth
-
+	var user : Users? = null
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_accueil)
 		auth = FirebaseAuth.getInstance()
 		onStartcheck()
-		val user = auth.currentUser
-		textView_bienvenu.text = "Salut ${user?.displayName}"
-		 Glide.with(this).load(user?.photoUrl).into(nv_icon)
+		get_user()
+		//val user = auth.currentUser
+
 		btn_deconnexion.setOnClickListener {
 			logout()
 		}
+	}
+
+	override fun onStart() {
+		super.onStart()
+
+		updateUI()
+	}
+	fun updateUI(){
+		textView_bienvenu.text = "Salut ${user?.pseudo}"
+		Glide.with(this).load(user?.profile).into(nv_icon)
+		Toast.makeText(
+			baseContext,
+			"UI updated",
+			Toast.LENGTH_LONG
+		).show()
+	}
+	fun get_user(){
+		val muser = FirebaseAuth.getInstance().currentUser
+		val ref = FirebaseDatabase.getInstance().getReference("users/${muser?.uid}")
+		val userListener = object : ValueEventListener {
+			override fun onDataChange(dataSnapshot: DataSnapshot) {
+				// Get Post object and use the values to update the UI
+				user = dataSnapshot.getValue(Users::class.java)
+				Toast.makeText(
+					baseContext,
+					user?.pseudo.toString(),
+					Toast.LENGTH_LONG
+				).show()
+			}
+
+			override fun onCancelled(databaseError: DatabaseError) {
+
+			}
+		}
+		ref.addListenerForSingleValueEvent(userListener)
 	}
 	fun logout(){
 		AuthUI.getInstance()

@@ -1,14 +1,14 @@
 package com.example.digi_move;
 
 public class Users {
-    String id;
-    String email;
-    String pseudo;
-    String nom;
-    String prenom;
-    String adresse;
-    int numero;
-    String profile;
+    String id="";
+    String email="";
+    String pseudo="";
+    String nom="";
+    String prenom="";
+    String adresse="";
+    int numero=-1;
+    String profile="";
 
     public Users() {
     }
@@ -96,5 +96,5 @@ public class Users {
         this.firstLog = firstLog;
     }
 
-    boolean firstLog = false;
+    boolean firstLog = true;
 }

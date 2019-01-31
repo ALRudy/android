@@ -33,12 +33,17 @@ import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.FirebaseUiException
 import com.firebase.ui.auth.IdpResponse
 import com.firebase.ui.auth.data.model.Resource
+import com.firebase.ui.auth.data.model.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -115,6 +120,54 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		}
 	}
 
+    fun check_if_first_connexion(){
+        val muser = FirebaseAuth.getInstance().currentUser
+        val ref = FirebaseDatabase.getInstance().getReference("users/${muser?.uid}")
+        val userListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
+                var user = dataSnapshot.getValue(Users::class.java)
+				if (user == null){
+                    user = Users()
+                    user.id = muser?.uid
+                    user.pseudo = muser?.displayName
+                    user.email = muser?.email
+                    ref.setValue(user)
+                    Toast.makeText(baseContext, user.toString(),
+                        Toast.LENGTH_SHORT).show()
+					finish()
+					val intent = Intent(baseContext, EditionInfoActivity::class.java)
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+					startActivity(intent)
+                }
+                else{
+                    if(user.firstLog){
+                        finish()
+                        val intent = Intent(baseContext, EditionInfoActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                    }
+                    else{
+                        finish()
+                        val intent = Intent(baseContext, accueil::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                    }
+                }
+
+                // ...
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+
+                // ...
+            }
+        }
+        ref.addListenerForSingleValueEvent(userListener)
+
+    }
+
 	override fun onBackPressed() {
 		AuthUI.getInstance()
 			.signOut(this)
@@ -154,11 +207,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		auth.signInWithCredential(credential)
 			.addOnCompleteListener(this) { task ->
 				if (task.isSuccessful) {
+                    check_if_first_connexion()
 
-					finish()
-					val intent = Intent(this, accueil::class.java)
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-					startActivity(intent)
 				} else {
 					// If sign in fails, display a message to the user.
 
@@ -202,12 +252,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		auth.signInWithCredential(credential)
 			.addOnCompleteListener(this) { task ->
 				if (task.isSuccessful) {
-
+                    check_if_first_connexion()
 					showProgress(true)
-					finish()
-					val intent = Intent(this, accueil::class.java)
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-					startActivity(intent)
 				} else {
 					// If sign in fails, display a message to the user.
 					//updateUI(null)
@@ -319,6 +365,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 							validation_dialog(user)
 						}
 						else{
+                            check_if_first_connexion()
 							finish()
 							val intent = Intent(this, accueil::class.java)
 							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
