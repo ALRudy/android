@@ -8,49 +8,71 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
         tools:context=".MainActivity">
-    <Button
-            
-            android:text="@string/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_signin_social_networl" app:layout_anchorGravity="left|center"
-            app:layout_anchor="@+id/btn_signin"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/editText_mdp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@+id/editText_mdp"/>
-    <Button
-            android:text="@string/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_signin"
-            app:layout_constraintEnd_toEndOf="@+id/editText_mdp"
-            android:layout_marginEnd="8dp" android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/editText_mdp"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:padding="1dp"
+            android:id="@+id/nv_icon2"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#80000000"
+            android:elevation="100dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:src="@drawable/messenger_button_send_round_shadow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="110dp"
+            tools:layout_conversion_absoluteWidth="110dp" android:layout_marginTop="112dp"
+    />
+
     <EditText
-            android:layout_width="286dp"
+            android:layout_width="340dp"
+            android:layout_height="58dp"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/editText_email"
+            android:hint="@string/email" android:importantForAutofill="no" tools:targetApi="o"
+            app:layout_constraintTop_toBottomOf="@+id/nv_icon2" android:layout_marginTop="64dp"
+            android:textColor="@color/fui_buttonShadow" android:textColorLink="@color/fui_buttonShadow"
+            android:textSize="24sp" app:layout_constraintHorizontal_bias="0.507"/>
+    <EditText
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/editText_mdp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp" android:layout_marginTop="48dp"
             app:layout_constraintTop_toBottomOf="@+id/editText_email" android:hint="@string/mdp"
-            android:importantForAutofill="no" tools:targetApi="o" app:layout_constraintHorizontal_bias="0.495"/>
-    <EditText
-            android:layout_width="286dp"
-            android:layout_height="39dp"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/editText_email" android:layout_marginTop="60dp"
-            app:layout_constraintTop_toTopOf="parent" android:hint="@string/email" android:importantForAutofill="no"
-            tools:targetApi="o" app:layout_constraintHorizontal_bias="0.496"/>
+            android:importantForAutofill="no" tools:targetApi="o" android:textColor="@color/fui_buttonShadow"
+            android:textColorLink="@color/fui_buttonShadow" android:textSize="24sp"
+            app:layout_constraintHorizontal_bias="0.509"/>
+    <Button
+            android:text="@string/s_inscrire1"
+            android:layout_width="211dp"
+            android:layout_height="61dp"
+            android:id="@+id/btn_signin" app:layout_constraintEnd_toEndOf="@+id/editText_mdp"
+            android:layout_marginTop="72dp" app:layout_constraintTop_toBottomOf="@+id/editText_mdp"
+            app:layout_constraintStart_toStartOf="@+id/editText_mdp"
+            android:textColor="@color/fui_buttonShadow"
+            android:background="@drawable/degrade_blck_clr" android:textSize="24sp"
+            app:layout_constraintHorizontal_bias="0.49"/>
+    <ImageView
+
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:id="@+id/btn_signin_social_networl"
+            app:srcCompat="?attr/homeAsUpIndicator" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:contentDescription="TODO"/>
     <ProgressBar
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/editText_mdp"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

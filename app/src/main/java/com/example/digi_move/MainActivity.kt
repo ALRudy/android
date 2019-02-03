@@ -27,15 +27,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 	    // Initialize Firebase Auth
 	    hideProgressDialog()
 	    auth = FirebaseAuth.getInstance()
 		onStartcheck()
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         btn_signin.setOnClickListener(){
 
             val email = editText_email.text.toString()
@@ -51,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
 	    btn_signin_social_networl.setOnClickListener {
 		    val intent = Intent(this, LoginActivity::class.java)
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 		    startActivity(intent)
 	    }
 

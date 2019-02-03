@@ -1,8 +1,10 @@
 package com.example.digi_move
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -15,17 +17,18 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_accueil.*
+import kotlinx.coroutines.*
 
 class accueil : AppCompatActivity() {
 
 	private lateinit var auth: FirebaseAuth
 	var user : Users? = null
 	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_accueil)
 		auth = FirebaseAuth.getInstance()
 		onStartcheck()
-		get_user()
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_accueil)
+		get_user(this)
 		//val user = auth.currentUser
 
 		btn_deconnexion.setOnClickListener {
@@ -33,32 +36,27 @@ class accueil : AppCompatActivity() {
 		}
 	}
 
-	override fun onStart() {
-		super.onStart()
 
-		updateUI()
+	override fun onBackPressed() {
+		finish()
 	}
-	fun updateUI(){
-		textView_bienvenu.text = "Salut ${user?.pseudo}"
-		Glide.with(this).load(user?.profile).into(nv_icon)
-		Toast.makeText(
-			baseContext,
-			"UI updated",
-			Toast.LENGTH_LONG
-		).show()
-	}
-	fun get_user(){
-		val muser = FirebaseAuth.getInstance().currentUser
+
+
+	fun get_user(context : Context){
+		val muser = auth.currentUser
 		val ref = FirebaseDatabase.getInstance().getReference("users/${muser?.uid}")
+
 		val userListener = object : ValueEventListener {
 			override fun onDataChange(dataSnapshot: DataSnapshot) {
 				// Get Post object and use the values to update the UI
-				user = dataSnapshot.getValue(Users::class.java)
-				Toast.makeText(
-					baseContext,
-					user?.pseudo.toString(),
-					Toast.LENGTH_LONG
-				).show()
+				user = dataSnapshot.getValue(Users::class.java) as Users?
+				textView_bienvenu.text = "${user?.nom + user?.prenom}"
+				if (user?.profile != null || user?.profile != ""){
+					Glide.with(baseContext).load(user?.profile).into(nv_icon)
+				}
+
+
+
 			}
 
 			override fun onCancelled(databaseError: DatabaseError) {
@@ -66,6 +64,10 @@ class accueil : AppCompatActivity() {
 			}
 		}
 		ref.addListenerForSingleValueEvent(userListener)
+
+
+
+
 	}
 	fun logout(){
 		AuthUI.getInstance()
@@ -73,6 +75,7 @@ class accueil : AppCompatActivity() {
 			.addOnCompleteListener {
 				finish()
 				val intent = Intent(this, LoginActivity::class.java)
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 				startActivity(intent)
 			}
 
@@ -85,19 +88,22 @@ class accueil : AppCompatActivity() {
 			}
 	}
 	public fun onStartcheck() {
-		super.onStart()
+
 		// Check if user is signed in (non-null) and update UI accordingly.
 		val currentUser = auth.currentUser
 		//updateUI(currentUser)
 		if (currentUser == null) {
-			finish()
-			val intent = Intent(this, LoginActivity::class.java)
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-			startActivity(intent)
+			logout()
 		}
         if (currentUser != null) {
             if(!currentUser.isEmailVerified) {
-                validation_dialog(currentUser)
+
+				currentUser.sendEmailVerification()
+					.addOnCompleteListener { task ->
+						if (task.isSuccessful) {
+							validation_dialog(currentUser)
+						}
+					}
             }
         }
 	}
@@ -106,22 +112,9 @@ class accueil : AppCompatActivity() {
 
         builder.setCancelable(false)
         builder.setTitle("Validation du mail")
-        builder.setMessage("cette adresse n'a pas encore été vérifier, voulez-vous valider ?")
-        builder.setPositiveButton("Oui"){dialog, which ->
-            user.sendEmailVerification()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            this,
-                            "verifier votre mail pour valider votre compte",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        finish()
-                        val intent = Intent(this, LoginActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        startActivity(intent)
-                    }
-                }
+        builder.setMessage("cette adresse n'a pas encore été vérifié, confirmez votre compte en vérifiant votre mail ")
+        builder.setPositiveButton("OK"){dialog, which ->
+			logout()
         }
 
 
@@ -134,9 +127,9 @@ class accueil : AppCompatActivity() {
         // Display a neutral button on alert dialog
         builder.setNeutralButton("Annuler"){_,_ ->
             finish()
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
+			val intent = Intent(this, LoginActivity::class.java)
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+			startActivity(intent)
         }
 
         // Finally, make the alert dialog using builder

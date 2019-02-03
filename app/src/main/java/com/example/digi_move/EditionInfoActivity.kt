@@ -21,10 +21,11 @@ import java.util.*
 class EditionInfoActivity : AppCompatActivity() {
     var photopic : Uri? = null
     var profile =""
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edition_info)
-        val auth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         // Write a message to the database
         val database = FirebaseDatabase.getInstance()
@@ -64,12 +65,10 @@ class EditionInfoActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
             photopic = data.data
-
+            uploadImage(photopic!!)
            /* val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,photopic)
             val bitmapDrawable = BitmapDrawable(bitmap)
             nv_icon2.setImageBitmap(bitmap)*/
-            Glide.with(this).load(photopic).into(nv_icon2)
-            uploadImage(photopic!!)
         }
     }
     fun uploadImage(uri: Uri){
@@ -83,13 +82,15 @@ class EditionInfoActivity : AppCompatActivity() {
                 ref.downloadUrl.addOnSuccessListener {
                     //Toast.makeText(this@EditionInfoActivity,"href : ${it}",Toast.LENGTH_SHORT).show()
                     profile = it.toString()
+
+                    Glide.with(this).load(photopic).into(nv_icon2)
                 }
             }
         }
     }
 
     private fun saveUser() {
-        val muser = FirebaseAuth.getInstance().currentUser
+        val muser = auth.currentUser
         val ref = FirebaseDatabase.getInstance().getReference("users/${muser?.uid}")
         val user = Users(muser?.uid,muser?.email,muser?.displayName,editText_nom.text.toString(),
             editText_prenom.text.toString(),editText_adresse.text.toString(), Integer.parseInt(editText_phone.text.toString()),profile)

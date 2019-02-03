@@ -112,7 +112,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 					}
 			}
 		}
-		txt_sinscrire.setOnClickListener {
+		btn_sinscrire.setOnClickListener {
 			finish()
 			val intent = Intent(this, MainActivity::class.java)
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -366,10 +366,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 						}
 						else{
                             check_if_first_connexion()
-							finish()
-							val intent = Intent(this, accueil::class.java)
-							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-							startActivity(intent)
+
 						}
 					}
 
@@ -453,13 +450,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 			val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
 
-			login_form.visibility = if (show) View.GONE else View.VISIBLE
-			login_form.animate()
+			email_login_form.visibility = if (show) View.GONE else View.VISIBLE
+			email_login_form.animate()
 				.setDuration(shortAnimTime)
 				.alpha((if (show) 0 else 1).toFloat())
 				.setListener(object : AnimatorListenerAdapter() {
 					override fun onAnimationEnd(animation: Animator) {
-						login_form.visibility = if (show) View.GONE else View.VISIBLE
+						email_login_form.visibility = if (show) View.GONE else View.VISIBLE
 					}
 				})
 
@@ -476,7 +473,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
 			login_progress.visibility = if (show) View.VISIBLE else View.GONE
-			login_form.visibility = if (show) View.GONE else View.VISIBLE
+			email_login_form.visibility = if (show) View.GONE else View.VISIBLE
 		}
 	}
 

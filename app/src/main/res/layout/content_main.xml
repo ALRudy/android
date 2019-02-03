@@ -8,48 +8,101 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
         tools:context=".MainActivity">
-    
+
     <ProgressBar
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:id="@+id/progressBar"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/editText_mdp"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
-    <EditText
-            android:layout_width="286dp"
-            android:layout_height="39dp"
-            android:inputType="textEmailAddress"
-            android:ems="10"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:padding="1dp"
+            android:id="@+id/nv_icon2"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#80000000"
+            android:elevation="100dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:src="@drawable/messenger_button_send_round_shadow"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/editText_email" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toTopOf="parent" android:hint="@string/email" android:importantForAutofill="no" tools:targetApi="o"/>
-    <EditText
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="110dp"
+            tools:layout_conversion_absoluteWidth="110dp" android:layout_marginTop="110dp"/>
+
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+
             android:layout_width="286dp"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/editText_mdp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/editText_email" android:hint="@string/mdp"
-            android:importantForAutofill="no" tools:targetApi="o"/>
-    <Button
-            android:text="@string/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_signin" app:layout_constraintEnd_toEndOf="@+id/editText_mdp"
+            app:mtf_cardCollapsedHeight="1dp"
+            app:mtf_image="@drawable/ic_mail"
+            app:mtf_animationDuration="300"
+            app:mtf_labelColor="#DF000000"
+            app:mtf_backgroundColor="#27FFFFFF"
+            android:id="@+id/materialTextField"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/editText_mdp"/>
-    <Button
-            
-            android:text="@string/button2"
-            android:layout_width="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/nv_icon2">
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:id="@+id/editText_email"
+                android:hint="@string/email"
+                android:textColor="#BF000000"
+                android:textColorLink="#BF000000"
+                android:importantForAutofill="no"
+                tools:targetApi="o"/>
+    </com.github.florent37.materialtextfield.MaterialTextField>
+    <com.github.florent37.materialtextfield.MaterialTextField
+
+            android:layout_width="286dp"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_signin_social_networl" app:layout_anchorGravity="left|center"
-            app:layout_anchor="@+id/btn_signin"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/editText_mdp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@+id/editText_mdp"/>
+            app:mtf_cardCollapsedHeight="1dp"
+            app:mtf_image="@drawable/ic_mdp"
+            app:mtf_animationDuration="300"
+            app:mtf_labelColor="#DF000000"
+            app:mtf_backgroundColor="#27FFFFFF"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextField"
+            android:id="@+id/materialTextField3"
+            app:layout_constraintEnd_toEndOf="@+id/materialTextField"
+            app:layout_constraintStart_toStartOf="@+id/materialTextField">
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:id="@+id/editText_mdp"
+                android:hint="@string/mdp"
+                android:textColor="#DF000000"
+                android:textColorLink="#DF000000"
+                android:importantForAutofill="no"
+                tools:targetApi="o"/>
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <Button
+            android:text="@string/s_inscrire1"
+            android:layout_width="171dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_signin"
+            android:textColor="#aaa"
+            android:background="@drawable/degrade_blck_clr"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextField3"
+            app:layout_constraintEnd_toEndOf="@+id/materialTextField3"
+            app:layout_constraintStart_toStartOf="@+id/materialTextField3" android:layout_marginTop="50dp"/>
+    <ImageView
+
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:id="@+id/btn_signin_social_networl"
+            app:srcCompat="?attr/homeAsUpIndicator" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:contentDescription="@string/todofg"/>
 </android.support.constraint.ConstraintLayout>

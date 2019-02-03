@@ -6,14 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item> -->
-        <item name="colorPrimary">#1B1B1B</item>
-        <item name="colorPrimaryDark">#1B1B1B</item>
-        <item name="colorAccent">#DD0000</item>
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#181818</item>
+        <item name="colorAccent">#CACACA</item>
+        <item name="android:windowActivityTransitions">true</item>
 
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
