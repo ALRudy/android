@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		})
 
 		email_sign_in_button.setOnClickListener {
+			if (email.text.isEmpty()or password.text.isEmpty())return@setOnClickListener
 			attemptLogin()
 		}
 		// Configure Google Sign In
@@ -98,8 +99,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			signIn_google()
 		}
 		txt_mdp_oublie.setOnClickListener {
-            val intent = Intent(this, EditionInfoActivity::class.java)
-            startActivity(intent)
 			//Snackbar.make(it.rootView, "appuyer ici pour ne rien faire", Snackbar.LENGTH_LONG)
 			//	.setAction("ICI", null).show()
 			if (!email.text.toString().isEmpty()){
@@ -115,7 +114,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		btn_sinscrire.setOnClickListener {
 			finish()
 			val intent = Intent(this, MainActivity::class.java)
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 			startActivity(intent)
 		}
 	}
@@ -149,7 +147,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                     }
                     else{
                         finish()
-                        val intent = Intent(baseContext, accueil::class.java)
+                        val intent = Intent(baseContext, PrincipalActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                     }
@@ -174,7 +172,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			.addOnCompleteListener {
 				finish()
 			}
-		super.onBackPressed()
 	}
 
 	private fun signIn_facebook() {
@@ -355,37 +352,42 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 	}
 
 	fun signin_account(email: String, mdp: String) {
-		auth.signInWithEmailAndPassword(email, mdp)
-			.addOnCompleteListener {
-				if (it.isSuccessful) {
-					val user = auth.currentUser
-					showProgress(true)
-					if (user != null) {
-						if(!user.isEmailVerified) {
-							validation_dialog(user)
-						}
-						else{
-                            check_if_first_connexion()
 
+		if (email.isEmpty()or mdp.isEmpty())return
+		else{
+
+			auth.signInWithEmailAndPassword(email, mdp)
+				.addOnCompleteListener {
+					if (it.isSuccessful) {
+						val user = auth.currentUser
+						showProgress(true)
+						if (user != null) {
+							if(!user.isEmailVerified) {
+								validation_dialog(user)
+							}
+							else{
+								check_if_first_connexion()
+
+							}
+						}
+
+					}
+					else {
+						try{
+							throw it.exception!!
+						}
+						catch (invalidmail : FirebaseAuthInvalidUserException ){
+							Toast.makeText(this,"adresse invalide",Toast.LENGTH_SHORT).show()
+							showProgress(false)
+						}
+						catch (invalidpassword : FirebaseAuthInvalidCredentialsException ){
+							Toast.makeText(this,"le mot de passe ne correspond pas",Toast.LENGTH_SHORT).show()
+							showProgress(false)
 						}
 					}
 
 				}
-				else {
-					try{
-						throw it.exception!!
-					}
-					catch (invalidmail : FirebaseAuthInvalidUserException ){
-						Toast.makeText(this,"adresse invalide",Toast.LENGTH_SHORT).show()
-						showProgress(false)
-					}
-					catch (invalidpassword : FirebaseAuthInvalidCredentialsException ){
-						Toast.makeText(this,"le mot de passe ne correspond pas",Toast.LENGTH_SHORT).show()
-						showProgress(false)
-					}
-				}
-
-			}
+		}
 	}
 
 

@@ -54,7 +54,7 @@ class EditionInfoActivity : AppCompatActivity() {
         textView_valider.setOnClickListener {
             saveUser()
             finish()
-            val intent = Intent(baseContext, accueil::class.java)
+            val intent = Intent(baseContext, PrincipalActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
 

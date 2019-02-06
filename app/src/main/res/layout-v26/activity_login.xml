@@ -44,7 +44,7 @@
 
 			<com.github.florent37.materialtextfield.MaterialTextField
 
-					android:layout_width="340dp"
+					android:layout_width="360dp"
 					android:layout_height="wrap_content"
 					app:mtf_cardCollapsedHeight="1dp"
 					app:mtf_image="@drawable/ic_mail"
@@ -73,7 +73,7 @@
 
 			<com.github.florent37.materialtextfield.MaterialTextField
 
-					android:layout_width="340dp"
+					android:layout_width="360dp"
 					android:layout_height="wrap_content"
 					app:mtf_cardCollapsedHeight="1dp"
 					app:mtf_image="@drawable/ic_mdp"
@@ -123,7 +123,7 @@
 			<Button
 					android:id="@+id/email_sign_in_button"
 					style="?android:textAppearanceSmall"
-					android:layout_width="145dp"
+					android:layout_width="155dp"
 					android:layout_height="wrap_content"
 					android:text="@string/action_sign_in"
 					android:textStyle="bold"
@@ -158,7 +158,7 @@
 					app:layout_constraintTop_toTopOf="@+id/divider"/>
 			<Button
 					android:text="@string/sign_up"
-					android:layout_width="145dp"
+					android:layout_width="155dp"
 					android:layout_height="wrap_content"
 					android:id="@+id/btn_sinscrire" app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
 					app:layout_constraintTop_toBottomOf="@+id/txt_mdp_oublie"

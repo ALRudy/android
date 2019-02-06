@@ -126,10 +126,7 @@ class accueil : AppCompatActivity() {
 
         // Display a neutral button on alert dialog
         builder.setNeutralButton("Annuler"){_,_ ->
-            finish()
-			val intent = Intent(this, LoginActivity::class.java)
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-			startActivity(intent)
+            logout()
         }
 
         // Finally, make the alert dialog using builder

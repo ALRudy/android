@@ -25,39 +25,69 @@
             tools:layout_conversion_absoluteWidth="110dp" android:layout_marginTop="112dp"
     />
 
-    <EditText
-            android:layout_width="340dp"
-            android:layout_height="58dp"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/editText_email"
-            android:hint="@string/email" android:importantForAutofill="no" tools:targetApi="o"
-            app:layout_constraintTop_toBottomOf="@+id/nv_icon2" android:layout_marginTop="64dp"
-            android:textColor="@color/fui_buttonShadow" android:textColorLink="@color/fui_buttonShadow"
-            android:textSize="24sp" app:layout_constraintHorizontal_bias="0.507"/>
-    <EditText
-            android:layout_width="340dp"
+    <com.github.florent37.materialtextfield.MaterialTextField
+
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/editText_mdp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="48dp"
-            app:layout_constraintTop_toBottomOf="@+id/editText_email" android:hint="@string/mdp"
-            android:importantForAutofill="no" tools:targetApi="o" android:textColor="@color/fui_buttonShadow"
-            android:textColorLink="@color/fui_buttonShadow" android:textSize="24sp"
-            app:layout_constraintHorizontal_bias="0.509"/>
+            app:mtf_cardCollapsedHeight="1dp"
+            app:mtf_image="@drawable/ic_mail"
+            app:mtf_animationDuration="300"
+            app:mtf_labelColor="#DF000000"
+            app:mtf_backgroundColor="#27FFFFFF"
+            android:id="@+id/materialTextField"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/nv_icon2">
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:id="@+id/editText_email"
+                android:hint="@string/email"
+                android:textColor="#BF000000"
+                android:textColorLink="#BF000000"
+                android:importantForAutofill="no"
+                tools:targetApi="o"/>
+    </com.github.florent37.materialtextfield.MaterialTextField>
+    <com.github.florent37.materialtextfield.MaterialTextField
+
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            app:mtf_cardCollapsedHeight="1dp"
+            app:mtf_image="@drawable/ic_mdp"
+            app:mtf_animationDuration="300"
+            app:mtf_labelColor="#DF000000"
+            app:mtf_backgroundColor="#27FFFFFF"
+            android:layout_marginTop="64dp"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextField"
+            android:id="@+id/materialTextField3"
+            app:layout_constraintEnd_toEndOf="@+id/materialTextField"
+            app:layout_constraintStart_toStartOf="@+id/materialTextField" app:layout_constraintHorizontal_bias="0.0">
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:id="@+id/editText_mdp"
+                android:hint="@string/mdp"
+                android:textColor="#DF000000"
+                android:textColorLink="#DF000000"
+                android:importantForAutofill="no"
+                tools:targetApi="o"/>
+    </com.github.florent37.materialtextfield.MaterialTextField>
     <Button
             android:text="@string/s_inscrire1"
             android:layout_width="211dp"
             android:layout_height="61dp"
-            android:id="@+id/btn_signin" app:layout_constraintEnd_toEndOf="@+id/editText_mdp"
-            android:layout_marginTop="72dp" app:layout_constraintTop_toBottomOf="@+id/editText_mdp"
-            app:layout_constraintStart_toStartOf="@+id/editText_mdp"
-            android:textColor="@color/fui_buttonShadow"
+            android:id="@+id/btn_signin"
+            android:textColor="@color/fui_bgGoogle"
             android:background="@drawable/degrade_blck_clr" android:textSize="24sp"
-            app:layout_constraintHorizontal_bias="0.49"/>
+            app:layout_constraintTop_toBottomOf="@+id/materialTextField3"
+            app:layout_constraintEnd_toEndOf="@+id/materialTextField3"
+            app:layout_constraintStart_toStartOf="@+id/materialTextField3" android:layout_marginTop="80dp"
+            app:layout_constraintHorizontal_bias="0.496"/>
     <ImageView
 
             android:layout_width="55dp"

@@ -5,34 +5,45 @@
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_camera"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="Import"/>
+                android:id="@+id/itm_Organiser"
+                android:icon="@drawable/ic_organiser"
+                android:title="Organiser"/>
         <item
-                android:id="@+id/nav_gallery"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="Gallery"/>
+                android:id="@+id/itm_Planifier"
+                android:icon="@drawable/ic_planifier"
+                android:title="Planifier"/>
         <item
-                android:id="@+id/nav_slideshow"
-                android:icon="@drawable/ic_menu_slideshow"
-                android:title="Slideshow"/>
+                android:id="@+id/itm_Messages"
+                android:icon="@drawable/ic_message"
+                android:title="Messages"/>
         <item
-                android:id="@+id/nav_manage"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Tools"/>
+                android:id="@+id/itm_Groupes"
+                android:icon="@drawable/ic_groupes"
+                android:title="Groupes"/>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Communiquer">
         <menu>
             <item
                     android:id="@+id/nav_share"
                     android:icon="@drawable/ic_menu_share"
-                    android:title="Share"/>
+                    android:title="Partager"/>
             <item
                     android:id="@+id/nav_send"
                     android:icon="@drawable/ic_menu_send"
-                    android:title="Send"/>
+                    android:title="Envoyer"/>
         </menu>
-    </item>
+    </item><item android:title="Communicate">
+    <menu>
+        <item
+                android:id="@+id/itm_Reglage"
+                android:icon="@drawable/ic_reglages"
+                android:title="Reglage"/>
+        <item
+                android:id="@+id/itm_deconnexion"
+                android:icon="@drawable/ic_deconnexion"
+                android:title="Deconnexion"/>
+    </menu>
+</item>
 
 </menu>

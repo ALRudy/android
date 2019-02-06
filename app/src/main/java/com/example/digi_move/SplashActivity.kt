@@ -30,8 +30,8 @@ class SplashActivity : AppCompatActivity() {
             if (currentUser != null) {
                 if(currentUser.isEmailVerified) {
                     val option = ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(img_logo,"logo_img"))
-                    val intent = Intent(this, accueil::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    val intent = Intent(this, PrincipalActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                 }
                 else{
@@ -41,6 +41,6 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-        },3000)
+        },2000)
     }
 }

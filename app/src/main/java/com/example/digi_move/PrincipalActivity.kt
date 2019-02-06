@@ -1,21 +1,42 @@
 package com.example.digi_move
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.bumptech.glide.Glide
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_accueil.*
 import kotlinx.android.synthetic.main.activity_principal.*
 import kotlinx.android.synthetic.main.app_bar_principal.*
+import kotlinx.android.synthetic.main.nav_header_principal.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var auth: FirebaseAuth
+    var user : Users? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        auth = FirebaseAuth.getInstance()
+        onStartcheck()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
+        get_user(this)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -30,6 +51,102 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+
+    fun get_user(context : Context){
+        val muser = auth.currentUser
+        val ref = FirebaseDatabase.getInstance().getReference("users/${muser?.uid}")
+
+        val userListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
+                user = dataSnapshot.getValue(Users::class.java) as Users?
+                txt_pseudo.text = "${user?.pseudo}"
+                txt_mail.text = "${user?.email}"
+                if (user?.profile != null || user?.profile != ""){
+                    Glide.with(baseContext).load(user?.profile).into(imageView)
+                }
+
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        }
+        ref.addListenerForSingleValueEvent(userListener)
+
+
+
+
+    }
+    fun logout(){
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+                finish()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+
+    }
+    fun delete_account(){
+        AuthUI.getInstance()
+            .delete(this)
+            .addOnCompleteListener {
+                // ...
+            }
+    }
+    public fun onStartcheck() {
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        //updateUI(currentUser)
+        if (currentUser == null) {
+            logout()
+        }
+        if (currentUser != null) {
+            if(!currentUser.isEmailVerified) {
+
+                currentUser.sendEmailVerification()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            validation_dialog(currentUser)
+                        }
+                    }
+            }
+        }
+    }
+    private fun validation_dialog(user : FirebaseUser){
+        val builder = AlertDialog.Builder(this@PrincipalActivity)
+
+        builder.setCancelable(false)
+        builder.setTitle("Validation du mail")
+        builder.setMessage("cette adresse n'a pas encore été vérifié, confirmez votre compte en vérifiant votre mail ")
+        builder.setPositiveButton("OK"){dialog, which ->
+            logout()
+        }
+
+
+        // Display a negative button on alert dialog
+        /*	builder.setNegativeButton("Vérifier"){dialog,which ->
+                Toast.makeText(applicationContext,"You are not agree.",Toast.LENGTH_SHORT).show()
+            }*/
+
+
+        // Display a neutral button on alert dialog
+        builder.setNeutralButton("Annuler"){_,_ ->
+            logout()
+        }
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
     }
 
     override fun onBackPressed() {
@@ -59,16 +176,16 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.itm_Reglage -> {
                 // Handle the camera action
             }
-            R.id.nav_gallery -> {
+            R.id.itm_Groupes -> {
 
             }
-            R.id.nav_slideshow -> {
+            R.id.itm_Organiser -> {
 
             }
-            R.id.nav_manage -> {
+            R.id.itm_Messages -> {
 
             }
             R.id.nav_share -> {
@@ -76,6 +193,8 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_send -> {
 
+            }R.id.itm_deconnexion -> {
+            logout()
             }
         }
 

@@ -57,10 +57,27 @@ class MainActivity : AppCompatActivity() {
 		    .addOnCompleteListener {
 			    if (it.isSuccessful) {
 					showProgressDialog()
-				    finish()
-				    val intent = Intent(this, accueil::class.java)
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-				    startActivity(intent)
+					val currentUser = auth.currentUser
+					//updateUI(currentUser)
+					if (currentUser == null) {
+
+					}
+					if (currentUser != null) {
+						if(!currentUser.isEmailVerified) {
+
+							currentUser.sendEmailVerification()
+								.addOnCompleteListener { task ->
+									if (task.isSuccessful) {
+
+										Toast.makeText(this,"Veullez confirmer votre adresse, verifiez vos mail",Toast.LENGTH_LONG).show()
+										finish()
+										val intent = Intent(this, LoginActivity::class.java)
+										intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+										startActivity(intent)
+									}
+								}
+						}
+					}
 			    } else {
 				    // If sign in fails, display a message to the user.
 					try{
@@ -88,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 		val currentUser = auth.currentUser
 		//updateUI(currentUser)
 		if (currentUser != null){
-			val intent = Intent(this, accueil::class.java)
+			val intent = Intent(this, PrincipalActivity::class.java)
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 			startActivity(intent)
 			finish()
