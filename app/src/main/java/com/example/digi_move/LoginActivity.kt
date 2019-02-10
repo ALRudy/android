@@ -2,7 +2,6 @@ package com.example.digi_move
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.annotation.TargetApi
 import android.content.pm.PackageManager
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -21,10 +20,12 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.annotation.TargetApi
 import android.content.*
-import android.support.v7.app.AlertDialog
-import android.util.Log
+import android.graphics.Color
+import android.view.animation.Animation
 import android.widget.Toast
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -44,9 +45,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.shashank.sony.fancydialoglib.FancyAlertDialog
+import com.shashank.sony.fancydialoglib.Icon
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_main.*
+import libs.mjn.prettydialog.PrettyDialog
 
 /**
  * A login screen that offers login via email/password.
@@ -55,6 +59,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
+	//private lateinit var pDialog : SweetAlertDialog
+
 	private var mAuthTask: UserLoginTask? = null
 	private lateinit var auth: FirebaseAuth
 	private  var googleSignInClient : GoogleSignInClient?=null
@@ -66,6 +72,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		// Set up the login form.
 		auth = FirebaseAuth.getInstance()
 		FacebookSdk.sdkInitialize(applicationContext)
+		/*pDialog = SweetAlertDialog(applicationContext, SweetAlertDialog.SUCCESS_TYPE)
+		pDialog.progressHelper.barColor = Color.parseColor("#27000000")
+		pDialog.titleText = "Chargement";
+		pDialog.setCancelable(false);*/
+		pDialog.hide()
 
 		callbackManager = CallbackManager.Factory.create()
 
@@ -78,6 +89,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		populateAutoComplete()
 		password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
 			if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+
 				attemptLogin()
 				return@OnEditorActionListener true
 			}
@@ -102,12 +114,18 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			//Snackbar.make(it.rootView, "appuyer ici pour ne rien faire", Snackbar.LENGTH_LONG)
 			//	.setAction("ICI", null).show()
 			if (!email.text.toString().isEmpty()){
+
+				pDialog.show()
 				auth.sendPasswordResetEmail(email.text.toString())
 					.addOnCompleteListener { task ->
 						if (task.isSuccessful) {
-							Toast.makeText(baseContext, "Email envoyé",
-								Toast.LENGTH_SHORT).show()
+							pDialog.hide()
+							sucessDialog("Email envoyé")
 						}
+					}
+					.addOnFailureListener {
+						pDialog.hide()
+						errorDialog("email non envoyé")
 					}
 			}
 		}
@@ -119,6 +137,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 	}
 
     fun check_if_first_connexion(){
+		pDialog.show()
         val muser = FirebaseAuth.getInstance().currentUser
         val ref = FirebaseDatabase.getInstance().getReference("users/${muser?.uid}")
         val userListener = object : ValueEventListener {
@@ -135,6 +154,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                         Toast.LENGTH_SHORT).show()
 					finish()
 					val intent = Intent(baseContext, EditionInfoActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 					startActivity(intent)
                 }
@@ -142,12 +162,14 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                     if(user.firstLog){
                         finish()
                         val intent = Intent(baseContext, EditionInfoActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                     }
                     else{
                         finish()
                         val intent = Intent(baseContext, PrincipalActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                     }
@@ -165,7 +187,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         ref.addListenerForSingleValueEvent(userListener)
 
     }
+	fun logout(){
+		AuthUI.getInstance()
+			.signOut(this)
+			.addOnCompleteListener {
+			}
 
+	}
 	override fun onBackPressed() {
 		AuthUI.getInstance()
 			.signOut(this)
@@ -176,22 +204,23 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
 	private fun signIn_facebook() {
 
+        pDialog.show()
     callbackManager = CallbackManager.Factory.create();
 
     LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
 		override fun onSuccess(loginResult: LoginResult) {
 			handleFacebookAccessToken(loginResult.accessToken)
-			showProgress(true)
 
 		}
 
 		override fun onCancel() {
-
+            pDialog.hide()
 			// ...
 		}
 
 		override fun onError(error: FacebookException) {
-
+            pDialog.hide()
+            errorDialog("Authentification échoué")
 			// ...
 		}
 	})
@@ -207,10 +236,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                     check_if_first_connexion()
 
 				} else {
-					// If sign in fails, display a message to the user.
-
-					Toast.makeText(baseContext, "Authentication failed.",
-						Toast.LENGTH_SHORT).show()
+                    pDialog.hide()
+					errorDialog("Authentication échoué")
 				}
 
 				// ...
@@ -346,7 +373,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
-			showProgress(true)
+			pDialog.setIndicator("Authentification")
+			pDialog.show()
 			signin_account(emailStr, passwordStr)
 		}
 	}
@@ -359,30 +387,28 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			auth.signInWithEmailAndPassword(email, mdp)
 				.addOnCompleteListener {
 					if (it.isSuccessful) {
+
 						val user = auth.currentUser
-						showProgress(true)
 						if (user != null) {
 							if(!user.isEmailVerified) {
 								validation_dialog(user)
 							}
 							else{
 								check_if_first_connexion()
-
 							}
 						}
 
 					}
 					else {
+						pDialog.hide()
 						try{
 							throw it.exception!!
 						}
 						catch (invalidmail : FirebaseAuthInvalidUserException ){
-							Toast.makeText(this,"adresse invalide",Toast.LENGTH_SHORT).show()
-							showProgress(false)
+							errorDialog("adresse invalide")
 						}
 						catch (invalidpassword : FirebaseAuthInvalidCredentialsException ){
-							Toast.makeText(this,"le mot de passe ne correspond pas",Toast.LENGTH_SHORT).show()
-							showProgress(false)
+							errorDialog("le mot de passe ne correspond pas")
 						}
 					}
 
@@ -392,43 +418,32 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
 
 	private fun validation_dialog(user :FirebaseUser){
-		val builder = AlertDialog.Builder(this@LoginActivity)
 
-		builder.setCancelable(false)
-		builder.setTitle("Validation du mail")
-		builder.setMessage("cette adresse n'a pas encore été vérifier, voulez-vous valider ?")
-		builder.setPositiveButton("Oui"){dialog, which ->
-			user.sendEmailVerification()
-				.addOnCompleteListener { task ->
-					if (task.isSuccessful) {
-						Toast.makeText(
-							this,
-							"verifier votre mail pour valider votre compte",
-							Toast.LENGTH_LONG
-						).show()
-
-						showProgress(false)
+		FancyAlertDialog.Builder(this)
+			.setTitle("Validation du mail")
+			.setBackgroundColor(Color.parseColor("#FF040814"))  //Don't pass R.color.colorvalue
+			.setMessage("cette adresse n'a pas encore été vérifier, voulez-vous valider ?")
+			.setNegativeBtnText("Annuler")
+			.setPositiveBtnBackground(Color.parseColor("#FF040814"))  //Don't pass R.color.colorvalue
+			.setPositiveBtnText("Oui, valider !")
+			.setNegativeBtnBackground(Color.parseColor("#FF040814"))  //Don't pass R.color.colorvalue
+			.setAnimation(com.shashank.sony.fancydialoglib.Animation.POP)
+			.isCancellable(false)
+			.setIcon(R.drawable.ic_danger,Icon.Visible).OnPositiveClicked {
+				user.sendEmailVerification()
+					.addOnCompleteListener { task ->
+						if (task.isSuccessful) {
+							sucessDialog("envoi de mail!\nverifier votre mail pour valider votre compte")
+							pDialog.hide()
+							logout()
+						}
 					}
-				}
-		}
-
-
-		// Display a negative button on alert dialog
-	/*	builder.setNegativeButton("Vérifier"){dialog,which ->
-			Toast.makeText(applicationContext,"You are not agree.",Toast.LENGTH_SHORT).show()
-		}*/
-
-
-		// Display a neutral button on alert dialog
-		builder.setNeutralButton("Annuler"){_,_ ->
-			showProgress(false)
-		}
-
-		// Finally, make the alert dialog using builder
-		val dialog: AlertDialog = builder.create()
-
-		// Display the alert dialog on app interface
-		dialog.show()
+			}
+			.OnNegativeClicked {
+				pDialog.hide()
+				logout()
+			}
+			.build()
 	}
 
 	private fun isEmailValid(email: String): Boolean {
@@ -564,6 +579,42 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 			showProgress(false)
 		}
 
+	}
+
+	fun errorDialog(str : String){
+		/*FancyAlertDialog.Builder(this)
+			.setTitle("Erreur")
+			.setBackgroundColor(Color.parseColor("#FF040814"))  //Don't pass R.color.colorvalue
+			.setMessage(str)
+			.setNegativeBtnText("Annuler")
+			.setPositiveBtnBackground(Color.parseColor("#FF040814"))  //Don't pass R.color.colorvalue
+			.setPositiveBtnText("Ok")
+			.setNegativeBtnBackground(Color.parseColor("#FF040814"))  //Don't pass R.color.colorvalue
+			.setAnimation(com.shashank.sony.fancydialoglib.Animation.POP)
+			.isCancellable(false)
+			.setIcon(R.drawable.ic_danger,Icon.Visible).OnPositiveClicked {
+
+			}
+			.OnNegativeClicked {
+
+			}
+			.build()*/
+			PrettyDialog(this)
+				.setTitleColor(R.color.rouge)
+				.setIcon(R.drawable.ic_danger)
+				.setMessageColor(R.color.vert_clair)
+				.setTitle("Erreur")
+				.setMessage(str)
+				.show()
+	}
+	fun sucessDialog(str: String){
+		PrettyDialog(this)
+			.setTitleColor(R.color.vert_ko)
+			.setIcon(R.drawable.ic_checked)
+			.setMessageColor(R.color.vert_clair)
+			.setTitle("Succès")
+			.setMessage(str)
+			.show()
 	}
 
 	companion object {

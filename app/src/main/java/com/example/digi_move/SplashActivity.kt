@@ -25,18 +25,21 @@ class SplashActivity : AppCompatActivity() {
                 val option = ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(img_logo,"logo_img"))
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 startActivity(intent)
             }
             if (currentUser != null) {
                 if(currentUser.isEmailVerified) {
                     val option = ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(img_logo,"logo_img"))
                     val intent = Intent(this, PrincipalActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                 }
                 else{
                     val option = ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(img_logo,"logo_img"))
                     val intent = Intent(this, LoginActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
                 }

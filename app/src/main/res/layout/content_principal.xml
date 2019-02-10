@@ -9,4 +9,56 @@
         tools:showIn="@layout/app_bar_principal"
         tools:context=".PrincipalActivity">
 
+    <com.github.okdroid.checkablechipview.CheckableChipView
+            android:id="@+id/chip"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="@string/pie_cake"
+            android:textColor="#99FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.482"
+            app:layout_constraintVertical_bias="0.099"
+            android:color="#8BDA0000"/>
+    <com.andremion.counterfab.CounterFab
+            app:backgroundTint="#C1FF0000"
+            app:fabSize="mini"
+            android:id="@+id/counter_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_dialog_email"
+            android:backgroundTint="#00694646"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:borderWidth="@dimen/inner_padding_right"/>
+    <nl.dionsegijn.steppertouch.StepperTouch
+            android:backgroundTint="#83FF0000"
+            android:id="@+id/stepperTouch"
+            android:layout_width="100dp"
+            android:layout_height="40dp" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/chip" app:layout_constraintEnd_toEndOf="@+id/chip"
+            app:layout_constraintStart_toStartOf="@+id/chip"
+            app:stepperTextColor="@color/red_btn_bg_pressed_color"/>
+    <io.ghyeok.stickyswitch.widget.StickySwitch
+            android:id="@+id/sticky_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:layout_centerInParent="true"
+            app:ss_animationDuration="600"
+            app:ss_iconPadding="10dp"
+            app:ss_iconSize="42dp"
+            app:ss_leftText="éco"
+            app:ss_rightText="vip"
+            app:ss_selectedTextSize="16sp"
+            app:ss_sliderBackgroundColor="#D0111118"
+            app:ss_switchColor="#6AA50101"
+            app:ss_textColor="#B2FFFFFF"
+            app:ss_textSize="12sp"
+            app:ss_animationType="line" app:layout_constraintTop_toBottomOf="@+id/stepperTouch"
+            android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="32dp"
+            android:visibility="visible"/>
 </android.support.constraint.ConstraintLayout>

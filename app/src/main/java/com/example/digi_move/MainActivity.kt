@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 										Toast.makeText(this,"Veullez confirmer votre adresse, verifiez vos mail",Toast.LENGTH_LONG).show()
 										finish()
 										val intent = Intent(this, LoginActivity::class.java)
+										intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 										intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 										startActivity(intent)
 									}
@@ -107,6 +108,7 @@ class MainActivity : AppCompatActivity() {
 		if (currentUser != null){
 			val intent = Intent(this, PrincipalActivity::class.java)
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 			startActivity(intent)
 			finish()
 		}

@@ -41,7 +41,7 @@
             app:mtf_cardCollapsedHeight="1dp"
             app:mtf_image="@drawable/ic_mail"
             app:mtf_animationDuration="300"
-            app:mtf_labelColor="#DF000000"
+            app:mtf_labelColor="#aaa"
             app:mtf_backgroundColor="#27FFFFFF"
             android:id="@+id/materialTextField"
             android:layout_marginEnd="8dp"
@@ -56,8 +56,8 @@
                 android:inputType="textEmailAddress"
                 android:id="@+id/editText_email"
                 android:hint="@string/email"
-                android:textColor="#BF000000"
-                android:textColorLink="#BF000000"
+                android:textColor="#aaa"
+                android:backgroundTint="#aaa"
                 android:importantForAutofill="no"
                 tools:targetApi="o"/>
     </com.github.florent37.materialtextfield.MaterialTextField>
@@ -68,7 +68,7 @@
             app:mtf_cardCollapsedHeight="1dp"
             app:mtf_image="@drawable/ic_mdp"
             app:mtf_animationDuration="300"
-            app:mtf_labelColor="#DF000000"
+            app:mtf_labelColor="#aaa"
             app:mtf_backgroundColor="#27FFFFFF"
             android:layout_marginTop="30dp"
             app:layout_constraintTop_toBottomOf="@+id/materialTextField"
@@ -81,8 +81,8 @@
                 android:inputType="textPassword"
                 android:id="@+id/editText_mdp"
                 android:hint="@string/mdp"
-                android:textColor="#DF000000"
-                android:textColorLink="#DF000000"
+                android:textColor="#aaa"
+                android:backgroundTint="#aaa"
                 android:importantForAutofill="no"
                 tools:targetApi="o"/>
     </com.github.florent37.materialtextfield.MaterialTextField>

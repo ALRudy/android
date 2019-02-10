@@ -1,14 +1,14 @@
 package com.example.digi_move;
 
 public class Users {
-    String id="";
-    String email="";
-    String pseudo="";
-    String nom="";
-    String prenom="";
-    String adresse="";
-    int numero=-1;
-    String profile="";
+    private String id="";
+    private String email="";
+    private String pseudo="";
+    private String nom="";
+    private String prenom="";
+    private String adresse="";
+    private int numero=-1;
+    private String profile="";
 
     public Users() {
     }

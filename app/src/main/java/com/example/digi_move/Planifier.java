@@ -1,37 +1,32 @@
 package com.example.digi_move;
 
-public class Voyages {
-
-    private String organisateur;
+public class Planifier {
+    private String planificateur;
     private String depart;
     private String destination;
     private String date;
     private String heure;
     private String classe;
-    private String tarif;
     private String description;
-    private String statut;
-    private String modalité;
 
-    public Voyages(String organisateur, String depart, String destination, String date, String heure, String classe, String tarif, String description, String statut, String modalité) {
-        this.organisateur = organisateur;
+    public Planifier(String planificateur, String depart, String destination, String date, String heure, String classe, String description) {
+        this.planificateur = planificateur;
         this.depart = depart;
         this.destination = destination;
         this.date = date;
         this.heure = heure;
         this.classe = classe;
-        this.tarif = tarif;
         this.description = description;
-        this.statut = statut;
-        this.modalité = modalité;
     }
 
-    public String getOrganisateur() {
-        return organisateur;
+    public Planifier(){}
+
+    public String getPlanificateur() {
+        return planificateur;
     }
 
-    public void setOrganisateur(String organisateur) {
-        this.organisateur = organisateur;
+    public void setPlanificateur(String planificateur) {
+        this.planificateur = planificateur;
     }
 
     public String getDepart() {
@@ -74,14 +69,6 @@ public class Voyages {
         this.classe = classe;
     }
 
-    public String getTarif() {
-        return tarif;
-    }
-
-    public void setTarif(String tarif) {
-        this.tarif = tarif;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -90,26 +77,5 @@ public class Voyages {
         this.description = description;
     }
 
-    public String getStatut() {
-        return statut;
-    }
 
-    public void setStatut(String statut) {
-        this.statut = statut;
-    }
-
-    public String getModalité() {
-        return modalité;
-    }
-
-    public void setModalité(String modalité) {
-        this.modalité = modalité;
-    }
-
-    public Voyages(String organisateur){
-
-    }
-    public Voyages (){
-
-    }
 }
