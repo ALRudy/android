@@ -47,6 +47,9 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setSupportActionBar(toolbar)
         sticky_switch.setLeftIcon(R.drawable.ic_eco_car)
         sticky_switch.setRightIcon(R.drawable.ic_vip_car)
+
+        list_accueil.adapter
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -59,8 +62,11 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        counter_fab.setOnClickListener {
-            counter_fab.increase()
+        counter_messages.setOnClickListener {
+            counter_messages.increase()
+        }
+        counter_notifications.setOnClickListener {
+            counter_notifications.increase()
         }
         val stepperTouch = findViewById<StepperTouch>(R.id.stepperTouch)
         stepperTouch.stepper.setMin(0)
