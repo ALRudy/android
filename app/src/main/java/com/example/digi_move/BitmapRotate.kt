@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
-import android.support.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface
 import android.util.Log
 
 import java.io.IOException
@@ -55,22 +55,22 @@ class BitmapRotate {
     private fun rotateImageIfRequired(img: Bitmap?, selectedImage: Uri): Bitmap? {
 
         val input = mContext!!.contentResolver.openInputStream(selectedImage)
-        val ei: ExifInterface
+        val ei: androidx.exifinterface.media.ExifInterface
         try {
-            ei = ExifInterface(input!!)
+            ei = androidx.exifinterface.media.ExifInterface(input!!)
 
-            val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+            val orientation = ei.getAttributeInt(androidx.exifinterface.media.ExifInterface.TAG_ORIENTATION, androidx.exifinterface.media.ExifInterface.ORIENTATION_NORMAL)
 
             when (orientation) {
-                ExifInterface.ORIENTATION_ROTATE_90 -> return rotateImage(
+                androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_90 -> return rotateImage(
                     img,
                     90
                 )
-                ExifInterface.ORIENTATION_ROTATE_180 -> return rotateImage(
+                androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_180 -> return rotateImage(
                     img,
                     180
                 )
-                ExifInterface.ORIENTATION_ROTATE_270 -> return rotateImage(
+                androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_270 -> return rotateImage(
                     img,
                     270
                 )

@@ -2,42 +2,35 @@ package com.example.digi_move
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.core.view.toBitmap
 import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.jackandphantom.blurimage.BlurImage
-import kotlinx.android.synthetic.main.activity_accueil.*
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_principal.*
+import kotlinx.android.synthetic.main.activity_scroll.*
 import kotlinx.android.synthetic.main.app_bar_principal.*
 import kotlinx.android.synthetic.main.content_principal.*
 import kotlinx.android.synthetic.main.nav_header_principal.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import nl.dionsegijn.steppertouch.OnStepCallback
-import nl.dionsegijn.steppertouch.StepperTouch
 
-class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class PrincipalActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener{
     private lateinit var auth: FirebaseAuth
     var user : Users? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = FirebaseAuth.getInstance()
         onStartcheck()
@@ -45,10 +38,23 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setContentView(R.layout.activity_principal)
         get_user(this)
         setSupportActionBar(toolbar)
-        sticky_switch.setLeftIcon(R.drawable.ic_eco_car)
-        sticky_switch.setRightIcon(R.drawable.ic_vip_car)
 
-        list_accueil.adapter
+        var item = GroupAdapter<ViewHolder>()
+        item.add(Orga_Class())
+        item.add(Orga_Class())
+        item.add(Orga_Class())
+        item.add(Orga_Class())
+        list_accueil.adapter = item
+        var i = 0
+        icon_messages.setOnClickListener {
+            badge_messages.animationDuration = 1
+            badge_messages.setNumber(++i)
+        }
+        var j = 0
+        icon_notifications.setOnClickListener {
+            badge_notifications.animationDuration = 1
+            badge_notifications.setNumber(++j)
+        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -60,24 +66,17 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
         nav_view.setNavigationItemSelectedListener(this)
-        counter_messages.setOnClickListener {
-            counter_messages.increase()
-        }
-        counter_notifications.setOnClickListener {
-            counter_notifications.increase()
-        }
-        val stepperTouch = findViewById<StepperTouch>(R.id.stepperTouch)
-        stepperTouch.stepper.setMin(0)
-        stepperTouch.stepper.setMax(10)
-        stepperTouch.stepper.addStepCallback(object : OnStepCallback {
-            override fun onStep(value: Int, positive: Boolean) {
-                Toast.makeText(applicationContext, value.toString(), Toast.LENGTH_SHORT).show()
-            }
+
+        /*crdHeaderView.post(Runnable {
+            // parameters are (View headerView, int marginTop)
+            concealerNSV.setHeaderView(crdHeaderView, 15)
+        })*/
+        linFooterView.post(Runnable {
+            // parameters are (View footerView, int marginBottom)
+            concealerNSV.setFooterView(linFooterView, 0)
         })
     }
-
 
     fun get_user(context : Context){
         val muser = auth.currentUser
@@ -86,7 +85,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val userListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
-                user = dataSnapshot.getValue(Users::class.java) as Users?
+                user = dataSnapshot.getValue(Users::class.java)
                 txt_pseudo.text = "${user?.prenom} ${user?.nom}"
                 txt_mail.text = "${user?.email}"
                 if (user?.profile != null || user?.profile != ""){
@@ -199,15 +198,13 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             else -> return super.onOptionsItemSelected(item)
         }
     }
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when(p0.itemId){
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
             R.id.itm_Reglage -> {
                 // Handle the camera action
+                Toast.makeText(applicationContext,"ato",Toast.LENGTH_LONG ).show()
                 val intent = Intent(applicationContext,ScrollActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 startActivity(intent)
             }
             R.id.itm_Groupes -> {
@@ -224,11 +221,12 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_send -> {
 
-            }R.id.itm_deconnexion -> {
-            logout()
+            }
+            R.id.itm_deconnexion -> {
+                Toast.makeText(applicationContext,"ato koa",Toast.LENGTH_LONG ).show()
+                logout()
             }
         }
-
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

@@ -1,19 +1,15 @@
 package com.example.digi_move
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.media.MediaScannerConnection
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.net.toFile
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI
@@ -23,11 +19,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.shashank.sony.fancydialoglib.FancyAlertDialog
 import com.shashank.sony.fancydialoglib.Icon
-import id.zelory.compressor.Compressor
-import kotlinx.android.synthetic.main.activity_accueil.*
 import kotlinx.android.synthetic.main.activity_edition_info.*
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.Delay
 import libs.mjn.prettydialog.PrettyDialog
 import java.util.*
 import me.echodev.resizer.Resizer
@@ -72,7 +64,7 @@ class EditionInfoActivity : AppCompatActivity() {
         }
         textView_valider.setOnClickListener {
             saveUser()
-            val user = auth.currentUser
+
             if (user != null) {
                 if(!user.isEmailVerified) {
                     validation_dialog(user)
@@ -91,9 +83,9 @@ class EditionInfoActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
+        if (requestCode == 0 && resultCode == androidx.appcompat.app.AppCompatActivity.RESULT_OK && data != null){
             photopic = data.data
-            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,photopic)
+          //  val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,photopic)
             val path = saveImage(photopic!!)
             Toast.makeText(applicationContext,path,Toast.LENGTH_LONG).show()
             println(path)
@@ -153,7 +145,7 @@ class EditionInfoActivity : AppCompatActivity() {
     }
     fun uploadImage(uri: Uri){
         println("eto aaaaaaaaaaaaaaaaaaaaaaaaa")
-        if (uri != null){
+        //if (uri != null){
 
             val filename = UUID.randomUUID().toString()
             val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
@@ -168,7 +160,7 @@ class EditionInfoActivity : AppCompatActivity() {
                     pDialog2.hide()
                 }
             }
-        }
+       // }
     }
 
     private fun saveUser() {

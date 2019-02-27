@@ -1,13 +1,11 @@
 package com.example.digi_move
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import android.app.ActivityOptions
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Pair
-import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_splash.*
 

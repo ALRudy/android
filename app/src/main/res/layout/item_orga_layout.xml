@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                                                       android:layout_height="wrap_content"
+                                                       app:cardCornerRadius="15dp"
+                                                       app:cardElevation="50dp"
+                                                       android:layout_margin="5dp"
+                                                       android:id="@+id/materialCardView">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp">
+
+            <TextView
+                    android:text="Rudy ARIZAFY"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:id="@+id/textView_pseudo_orga"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_profile_orga"
+                    android:textAlignment="viewStart" android:fontFamily="@font/montserrat"
+                    android:textSize="18sp" app:layout_constraintTop_toTopOf="@+id/imageView_profile_orga"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView_profile_orga"
+                    android:layout_marginStart="8dp"/>
+            <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/default_icon_profile"
+                    android:id="@+id/imageView_profile_orga"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"/>
+            <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:paddingHorizontal="4dp"
+                    android:background="@drawable/bg_noification"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintHorizontal_bias="1.0" app:layout_constraintTop_toBottomOf="@+id/imageView_profile_orga"
+                    android:layout_marginTop="8dp"/>
+            <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:paddingHorizontal="4dp"
+                    android:background="@drawable/bg_noification"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView8" android:layout_marginTop="24dp"/>
+            <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" app:srcCompat="@drawable/localisation"
+                    android:id="@+id/imageView6"
+                    app:layout_constraintTop_toBottomOf="@+id/divider2" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp" android:layout_marginTop="24dp"/>
+            <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" app:srcCompat="@drawable/heure"
+                    android:id="@+id/imageView7"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                    app:layout_constraintStart_toStartOf="@+id/imageView6"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView6"/>
+            <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" app:srcCompat="@drawable/prix"
+                    android:id="@+id/imageView8" app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7" android:layout_marginTop="24dp"/>
+            <TextView
+                    android:text="Tana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_depart_orga" app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="@+id/imageView6"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6" android:fontFamily="@font/montserrat"
+                    android:textColor="@color/white" android:paddingRight="5dp" android:paddingLeft="5dp"
+                    android:paddingBottom="2dp" android:paddingTop="2dp" android:background="@drawable/derade_rg_rs"/>
+            <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp" app:srcCompat="@drawable/fleche"
+                    android:id="@+id/imageView9" app:layout_constraintStart_toEndOf="@+id/textView_depart_orga"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/textView_depart_orga"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_depart_orga"/>
+            <TextView
+                    android:text="Nosy Be"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_destination_orga" app:layout_constraintStart_toEndOf="@+id/imageView9"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView9" android:fontFamily="@font/montserrat"
+                    android:textColor="@color/white" android:background="@drawable/derade_rg_rs"
+                    android:paddingLeft="5dp" android:paddingRight="5dp" android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+            />
+            <TextView
+                    android:text="12/03/2019"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_date_orga"
+                    app:layout_constraintTop_toTopOf="@+id/imageView7"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                    app:layout_constraintStart_toEndOf="@+id/imageView7" android:layout_marginStart="16dp"
+                    android:fontFamily="@font/montserrat"/>
+            <TextView
+                    android:text="18h30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_heure_orga" app:layout_constraintStart_toEndOf="@+id/textView_date_orga"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="@+id/textView_date_orga"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_date_orga" android:fontFamily="@font/montserrat"/>
+            <TextView
+                    android:text="200 000 Ar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_prix_orga" app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="@+id/imageView8"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView8" android:fontFamily="@font/montserrat"/>
+            <TextView
+                    android:text="nombre de places :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView10"
+                    app:layout_constraintTop_toTopOf="@+id/textView_prix_orga"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_prix_orga"
+                    android:fontFamily="@font/montserrat" app:layout_constraintEnd_toStartOf="@+id/textView_place_orga"
+                    android:layout_marginEnd="8dp"/>
+            <TextView
+                    android:text="12/16"
+                    android:layout_width="48dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/textView_place_orga"
+                    app:layout_constraintTop_toTopOf="@+id/textView10"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                    android:background="@drawable/degrade_blck_clr" android:textColor="@color/browser_actions_bg_grey"
+                    android:textAlignment="center" android:textSize="14sp" android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                    android:text="VIP"
+                    android:layout_width="50dp"
+                    android:layout_height="26dp"
+                    android:id="@+id/textView_classe_orga" android:textSize="18sp"
+                    android:background="@drawable/bg_oval" android:textAlignment="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/rose"
+                    app:layout_constraintTop_toTopOf="@+id/imageView10"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView10" android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0.333"/>
+            <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/vip_car"
+                    android:id="@+id/imageView10"
+                    app:layout_constraintTop_toTopOf="@+id/textView_destination_orga"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_destination_orga"
+                    app:layout_constraintEnd_toStartOf="@+id/textView_classe_orga" android:layout_marginEnd="16dp"
+            />
+            <Button
+                    android:text="interessé"
+                    android:layout_width="134dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/button_interrese_orga"
+                    android:background="@drawable/bg_oval"
+                    android:textSize="18sp" android:textColor="@color/vert_clair"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_description_orga"
+                    android:layout_marginStart="16dp"/>
+            <Button
+                    android:text="CHATER"
+                    android:layout_width="134dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/button_chater_orga"
+                    android:background="@drawable/bg_oval"
+                    android:textSize="18sp" android:textColor="@color/vert_clair"
+                    app:layout_constraintTop_toTopOf="@+id/button_interrese_orga"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_interrese_orga" android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0.0"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_description_orga"
+                    app:layout_constraintTop_toBottomOf="@+id/divider3" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp" android:layout_marginTop="8dp"
+                    android:text="@string/desc"/>
+            <TextView
+                    android:text="3 jours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="8dp" android:id="@+id/textView_date_post_orga"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:showIn="navigation_view">
+      xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+      >
 
     <group android:checkableBehavior="single">
         <item
@@ -22,7 +22,7 @@
                 android:title="Groupes"/>
     </group>
 
-    <item android:title="Communiquer">
+    <item android:title="@string/communiquer">
         <menu>
             <item
                     android:id="@+id/nav_share"
@@ -33,16 +33,17 @@
                     android:icon="@drawable/ic_menu_send"
                     android:title="Envoyer"/>
         </menu>
-    </item><item android:title="Communicate">
+    </item>
+    <item android:title="@string/communicate">
     <menu>
         <item
                 android:id="@+id/itm_Reglage"
                 android:icon="@drawable/ic_reglages"
-                android:title="Reglage"/>
+                android:title="@string/reglage"/>
         <item
                 android:id="@+id/itm_deconnexion"
                 android:icon="@drawable/ic_deconnexion"
-                android:title="Deconnexion"/>
+                android:title="@string/deconnexions"/>
     </menu>
 </item>
 

@@ -2,10 +2,10 @@ package com.example.digi_move
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI
@@ -49,7 +49,7 @@ class accueil : AppCompatActivity() {
 		val userListener = object : ValueEventListener {
 			override fun onDataChange(dataSnapshot: DataSnapshot) {
 				// Get Post object and use the values to update the UI
-				user = dataSnapshot.getValue(Users::class.java) as Users?
+				user = dataSnapshot.getValue(Users::class.java)
 				textView_bienvenu.text = "${user?.nom + user?.prenom}"
 				if (user?.profile != null || user?.profile != ""){
 					Glide.with(baseContext).load(user?.profile).into(nv_icon)

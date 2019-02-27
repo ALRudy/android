@@ -3,8 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="couleur_vania" >#946161</color>
     <color name="vert_ko">#0B5806</color>
     <color name="vert_clair">#CE686868</color>
     <color name="rouge">#CEB60000</color>
+    <color name="rose">#F8C5002B</color>
 </resources>
