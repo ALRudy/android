@@ -279,6 +279,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                     check_if_first_connexion()
 					showProgress(true)
 				} else {
+					showProgress(false)
 					// If sign in fails, display a message to the user.
 					//updateUI(null)
 				}

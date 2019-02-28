@@ -56,10 +56,16 @@ class PrincipalActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
             badge_notifications.setNumber(++j)
         }
 
-        fab.setOnClickListener { view ->
+      /*  fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }*/
+
+        btn_planifier_bottom.setOnClickListener {
+            val intent = Intent(this, PlanifierActivity::class.java)
+            startActivity(intent)
         }
+
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close

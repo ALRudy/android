@@ -33,14 +33,16 @@ class EditionInfoActivity : AppCompatActivity() {
     var photopic : Uri? = null
     var profile =""
     private lateinit var auth: FirebaseAuth
+    lateinit var database : FirebaseDatabase
+    lateinit var myRef : DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edition_info)
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         // Write a message to the database
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("users/${user?.uid}")
+        database = FirebaseDatabase.getInstance()
+        myRef = database.getReference("users/${user?.uid}")
 
         //myRef.setValue("Hello, World!")
         // Read from the database
