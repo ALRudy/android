@@ -6,22 +6,27 @@ import android.app.TimePickerDialog
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.DatePicker
-import android.widget.TimePicker
-import android.widget.Toast
+import android.view.View
+import android.widget.*
+import androidx.core.view.get
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_planifier.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 class PlanifierActivity : AppCompatActivity() {
 
-    lateinit var calendar: Calendar
-    lateinit var database : FirebaseDatabase
-    lateinit var myRef : DatabaseReference
-    lateinit var  listLieux : MutableMap<String,String>
-
+    private lateinit  var calendar: Calendar
+    private lateinit var database : FirebaseDatabase
+    private lateinit var myRef : DatabaseReference
+    private lateinit var listregions : HashSet<String>
+    private var mdepart = ""
+    private var mdestination = ""
+    private var mdate = ""
+    private var mheure = 0
+    private var mminute = 0
 
     @TargetApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,16 +36,17 @@ class PlanifierActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         myRef = database.getReference("regions/")
 
-        listLieux = HashMap<String,String>()
+        listregions = HashSet()
         calendar = Calendar.getInstance()
-        var day = calendar.get(Calendar.DAY_OF_MONTH)
-        var month =  calendar.get(Calendar.MONTH)
-        var year = calendar.get(Calendar.YEAR)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month =  calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
 
         btn_date_pick.setOnClickListener {
 
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view:DatePicker, mYear:Int, mMonth, mDayOfMonth ->
                 btn_date_pick.text = "$mDayOfMonth/$mMonth/$mYear"
+                mdate = "$mDayOfMonth/$mMonth/$mYear"
             },year,month,day)
             dpd.show()
         }
@@ -52,31 +58,49 @@ class PlanifierActivity : AppCompatActivity() {
             }
             TimePickerDialog(this,tmp,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true).show()
         }
-        setValListLieux()
+        //setValListLieux()
         getLieux()
+
+
+
+        spinner_depart.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mdepart = listregions.elementAt(position)
+                Toast.makeText(this@PlanifierActivity, mdepart,Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
     fun getLieux(){
-        val postListener = object : ValueEventListener {
+        val postListener = object : ValueEventListener  {
+
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Get Post object and use the values to update the UI
-                //listLieux = dataSnapshot.getValue(MutableMap<String, String>.class)
-                /*listLieux.forEach {
-                    Toast.makeText(this@PlanifierActivity,it.toString(),Toast.LENGTH_LONG).show()
+
+                dataSnapshot.children.forEach {
+                    listregions.add(it.value.toString())
+                  //  println("${it.key.toString()} : ${it.value.toString()}")
                 }
-                post!!.forEachIndexed { index, c ->
-                    listLieux.add(c.toString())
-                }*/
-                // ...
+                afficherLieux()
+                spinner_depart.adapter = ArrayAdapter<String>(this@PlanifierActivity,android.R.layout.simple_list_item_1,listregions.toList())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
 
-                // ...
             }
+
         }
 
         myRef.addValueEventListener(postListener)
+    }
+    fun afficherLieux(){
+        for (item in listregions){
+            Toast.makeText(this@PlanifierActivity, item,Toast.LENGTH_SHORT).show()
+            println(item)
+        }
     }
     fun setValListLieux(){
         myRef.push().setValue("TANA")

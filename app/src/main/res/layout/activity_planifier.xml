@@ -23,4 +23,18 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_date_pick"
             app:layout_constraintEnd_toEndOf="@+id/btn_date_pick"
             app:layout_constraintStart_toStartOf="@+id/btn_date_pick"/>
+    <Spinner
+            android:layout_width="346dp"
+            android:layout_height="42dp"
+            android:id="@+id/spinner_depart" app:layout_constraintStart_toStartOf="@+id/btn_time_pick"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/btn_time_pick"
+            app:layout_constraintEnd_toEndOf="@+id/btn_time_pick"/>
+    <Spinner
+            android:layout_width="346dp"
+            android:layout_height="42dp"
+            android:id="@+id/spinner_destination"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_depart"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_depart"
+            app:layout_constraintStart_toStartOf="@+id/spinner_depart"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

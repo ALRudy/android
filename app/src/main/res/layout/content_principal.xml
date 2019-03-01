@@ -170,6 +170,8 @@
             app:layout_constraintStart_toStartOf="@+id/icon_notifications" android:layout_marginStart="8dp"/>
 
     <com.google.android.material.textfield.TextInputEditText
+            android:focusable="false"
+            android:focusableInTouchMode="true"
             android:elevation="10dp"
             android:layout_width="0dp"
             android:layout_height="32dp"

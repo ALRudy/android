@@ -44,5 +44,10 @@
     <string name="reglage">Reglage</string>
     <string name="deconnexions">Deconnexions</string>
     <string name="desc">description</string>
+    <string-array name="list_regions">
+        <item>Tana</item>
+        <item>Nosy be</item>
+        <item>Diego</item>
+    </string-array>
 
 </resources>
