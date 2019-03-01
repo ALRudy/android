@@ -39,40 +39,60 @@ class PlanifierActivity : AppCompatActivity() {
         listregions = HashSet()
         calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val month =  calendar.get(Calendar.MONTH)
+        val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
 
         btn_date_pick.setOnClickListener {
 
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view:DatePicker, mYear:Int, mMonth, mDayOfMonth ->
-                btn_date_pick.text = "$mDayOfMonth/$mMonth/$mYear"
-                mdate = "$mDayOfMonth/$mMonth/$mYear"
-            },year,month,day)
+            val dpd = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth, mDayOfMonth ->
+                    btn_date_pick.text = "$mDayOfMonth/$mMonth/$mYear"
+                    mdate = "$mDayOfMonth/$mMonth/$mYear"
+                },
+                year,
+                month,
+                day
+            )
             dpd.show()
         }
         btn_time_pick.setOnClickListener {
-            val tmp = TimePickerDialog.OnTimeSetListener { view:TimePicker, mHourOfDay, mMinute ->
-                calendar.set(Calendar.HOUR_OF_DAY,mHourOfDay)
-                calendar.set(Calendar.MINUTE,mMinute)
-                btn_time_pick.text=SimpleDateFormat("HH:mm").format(calendar.time)
+            val tmp = TimePickerDialog.OnTimeSetListener { view: TimePicker, mHourOfDay, mMinute ->
+                calendar.set(Calendar.HOUR_OF_DAY, mHourOfDay)
+                calendar.set(Calendar.MINUTE, mMinute)
+                btn_time_pick.text = SimpleDateFormat("HH:mm").format(calendar.time)
             }
-            TimePickerDialog(this,tmp,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true).show()
+            TimePickerDialog(this, tmp, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
         }
         //setValListLieux()
         getLieux()
 
 
 
-        spinner_depart.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener{
+        spinner_depart.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 mdepart = listregions.elementAt(position)
-                Toast.makeText(this@PlanifierActivity, mdepart,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PlanifierActivity, mdepart, Toast.LENGTH_SHORT).show()
+                val listRegionDest = listregions.filter {
+                    it != mdepart
+                }
+                spinner_destination.adapter = ArrayAdapter<String>(this@PlanifierActivity,android.R.layout.simple_list_item_1,listRegionDest.toList())
             }
 
+        }
+        spinner_destination.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mdepart = listregions.elementAt(position)
+                Toast.makeText(this@PlanifierActivity, mdepart, Toast.LENGTH_SHORT).show()
+            }
         }
     }
     fun getLieux(){
