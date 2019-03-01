@@ -14,7 +14,10 @@
             android:id="@+id/btn_date_pick" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="32dp" android:layout_marginTop="68dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp" app:layout_constraintHorizontal_bias="0.0"/>
+            android:layout_marginEnd="32dp" app:layout_constraintHorizontal_bias="0.0" android:textSize="30sp"
+            android:lineSpacingExtra="@dimen/bar_actions_margin_right"
+            android:textColor="@color/sweet_dialog_bg_color" android:elevation="50dp"
+            android:background="@drawable/derade_rg_rs" android:textStyle="bold" android:textAlignment="center"/>
     <Button
             android:text="HEURE"
             android:layout_width="0dp"
@@ -22,13 +25,17 @@
             android:id="@+id/btn_time_pick" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/btn_date_pick"
             app:layout_constraintEnd_toEndOf="@+id/btn_date_pick"
-            app:layout_constraintStart_toStartOf="@+id/btn_date_pick"/>
+            app:layout_constraintStart_toStartOf="@+id/btn_date_pick" android:textSize="30sp"
+            android:lineSpacingExtra="30sp" android:textColor="@color/sweet_dialog_bg_color" android:textStyle="bold"
+            android:background="@drawable/degrade_blck_clr" android:textAlignment="center"/>
     <Spinner
             android:layout_width="346dp"
             android:layout_height="42dp"
+            android:backgroundTintMode="@color/white"
             android:id="@+id/spinner_depart" app:layout_constraintStart_toStartOf="@+id/btn_time_pick"
             android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/btn_time_pick"
-            app:layout_constraintEnd_toEndOf="@+id/btn_time_pick"/>
+            app:layout_constraintEnd_toEndOf="@+id/btn_time_pick" android:background="@drawable/derade_rg_rs"
+            android:popupBackground="@drawable/derade_rg_rs" android:textAlignment="center"/>
     <Spinner
             android:layout_width="346dp"
             android:layout_height="42dp"
@@ -36,5 +43,7 @@
             android:layout_marginTop="32dp"
             app:layout_constraintTop_toBottomOf="@+id/spinner_depart"
             app:layout_constraintEnd_toEndOf="@+id/spinner_depart"
-            app:layout_constraintStart_toStartOf="@+id/spinner_depart"/>
+            app:layout_constraintStart_toStartOf="@+id/spinner_depart" android:background="@drawable/derade_rg_rs"
+            android:popupBackground="@drawable/derade_rg_rs" android:textAlignment="center"
+    />
 </androidx.constraintlayout.widget.ConstraintLayout>
