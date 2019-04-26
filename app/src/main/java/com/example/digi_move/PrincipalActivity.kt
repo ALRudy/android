@@ -82,6 +82,12 @@ class PrincipalActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
             // parameters are (View footerView, int marginBottom)
             concealerNSV.setFooterView(linFooterView, 0)
         })
+        icon_messages.setOnClickListener {
+            val intent = Intent(this, MessagesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
     }
 
     fun get_user(context : Context){
