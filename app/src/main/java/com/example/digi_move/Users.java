@@ -1,6 +1,9 @@
 package com.example.digi_move;
 
-public class Users {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Users implements Parcelable {
     private String id="";
     private String email="";
     private String pseudo="";
@@ -97,4 +100,46 @@ public class Users {
     }
 
     boolean firstLog = true;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.email);
+        dest.writeString(this.pseudo);
+        dest.writeString(this.nom);
+        dest.writeString(this.prenom);
+        dest.writeString(this.adresse);
+        dest.writeInt(this.numero);
+        dest.writeString(this.profile);
+        dest.writeByte(this.firstLog ? (byte) 1 : (byte) 0);
+    }
+
+    protected Users(Parcel in) {
+        this.id = in.readString();
+        this.email = in.readString();
+        this.pseudo = in.readString();
+        this.nom = in.readString();
+        this.prenom = in.readString();
+        this.adresse = in.readString();
+        this.numero = in.readInt();
+        this.profile = in.readString();
+        this.firstLog = in.readByte() != 0;
+    }
+
+    public static final Creator<Users> CREATOR = new Creator<Users>() {
+        @Override
+        public Users createFromParcel(Parcel source) {
+            return new Users(source);
+        }
+
+        @Override
+        public Users[] newArray(int size) {
+            return new Users[size];
+        }
+    };
 }

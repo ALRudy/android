@@ -23,6 +23,13 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:appComponentFactory">
+        <activity android:name=".ChatActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                        android:value=".NouveauMessageActivity"/>
+
+        </activity>
+        <activity android:name=".NouveauMessageActivity">
+        </activity>
         <activity android:name=".MessagesActivity">
         </activity>
         <activity android:name=".PlanifierActivity">

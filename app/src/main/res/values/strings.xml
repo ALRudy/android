@@ -44,5 +44,6 @@
     <string name="reglage">Reglage</string>
     <string name="deconnexions">Deconnexions</string>
     <string name="desc">description</string>
+    <string name="user_item_name">TextView</string>
 
 </resources>
