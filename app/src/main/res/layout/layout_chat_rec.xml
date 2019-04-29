@@ -12,8 +12,7 @@ android:layout_marginBottom="1dp">
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:id="@+id/circleImageView_icon_chat_rec"
-            android:background="@drawable/com_facebook_profile_picture_blank_portrait"/>
+            app:layout_constraintTop_toTopOf="parent" android:id="@+id/circleImageView_icon_chat_rec"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"

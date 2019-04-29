@@ -35,11 +35,13 @@ class ChatActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         muser = auth.currentUser!!
-        get_user(this)
+        get_user()
         user_chat = intent.getParcelableExtra<Users>(NouveauMessageActivity.USER_CHAT)
         toolbar2.title = "${user_chat.prenom}"
 
-        val adapter = GroupAdapter<ViewHolder>()
+
+
+        //val adapter = GroupAdapter<ViewHolder>()
 
 
         button_envoyer.setOnClickListener {
@@ -53,22 +55,32 @@ class ChatActivity : AppCompatActivity() {
             message.date=Dates.today.toString()
             message.heure=Dates.today.time.toString()
 
+            val message2 = Messages()
+            message2.id_env = user_chat.id
+            message2.id_rec = muser?.uid
+            message2.lu = false
+            message2.message = edit_text_message_to_send.text.toString()
+            message2.date=Dates.today.toString()
+            message2.heure=Dates.today.time.toString()
+
             ref.setValue(message).addOnCompleteListener {
-                ref2.setValue(message).addOnCompleteListener {
-                    Toast.makeText(baseContext,"Done",Toast.LENGTH_LONG).show()
-                    edit_text_message_to_send.text.clear()
-                }
+                Toast.makeText(baseContext,"Done",Toast.LENGTH_SHORT).show()
+            }
+            ref2.setValue(message2).addOnCompleteListener {
+                Toast.makeText(baseContext,"Done2",Toast.LENGTH_SHORT).show()
+                edit_text_message_to_send.text.clear()
             }
 
         }
-        list_chat_c.adapter = adapter
+        //list_chat_c.adapter = adapter
 
-        fetchChatDialog()
+
     }
 
     private fun fetchChatDialog() {
 
         val ref = FirebaseDatabase.getInstance().getReference("/messages/${user?.id}/${user_chat?.id}")
+        Toast.makeText(baseContext,"/messages/${user?.id}/${user_chat?.id}",Toast.LENGTH_LONG).show()
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Toast.makeText(baseContext,"pas ok",Toast.LENGTH_LONG).show()
@@ -96,14 +108,15 @@ class ChatActivity : AppCompatActivity() {
 
         })
     }
-    fun get_user(context : Context){
-        val muser = auth.currentUser
+    fun get_user(){
+
         val ref = FirebaseDatabase.getInstance().getReference("users/${muser?.uid}")
 
         val userListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 user = dataSnapshot.getValue(Users::class.java)
+                fetchChatDialog()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
