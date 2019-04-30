@@ -16,7 +16,6 @@ class MessagesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages)
-
         database = FirebaseDatabase.getInstance()
         myRef = database.getReference("regions/")
 
@@ -50,4 +49,6 @@ class MessagesActivity : AppCompatActivity() {
 
         myRef.addValueEventListener(postListener)
     }
+
+
 }

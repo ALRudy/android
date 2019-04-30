@@ -8,19 +8,21 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import com.soywiz.klock.DateTime
+import com.soywiz.klock.DateTimeTz
+import com.soywiz.klock.KlockLocale
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import khronos.Dates
+import khronos.beginningOfDay
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.layout_chat_env.view.*
 import kotlinx.android.synthetic.main.layout_chat_rec.view.*
 import kotlinx.android.synthetic.main.layout_chat_rec.view.textView_date
 import kotlinx.android.synthetic.main.layout_chat_rec.view.textView_message
+import kotlinx.android.synthetic.main.layout_chat_env.view.textView_pseudo as textView_pseudo1
 
 class ChatActivity : AppCompatActivity() {
 
@@ -28,11 +30,12 @@ class ChatActivity : AppCompatActivity() {
     var user : Users? = null
     private lateinit var user_chat : Users
     private lateinit var muser : FirebaseUser
+    private lateinit var adapter : GroupAdapter<ViewHolder>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
+        adapter = GroupAdapter<ViewHolder>()
         auth = FirebaseAuth.getInstance()
         muser = auth.currentUser!!
         get_user()
@@ -47,30 +50,42 @@ class ChatActivity : AppCompatActivity() {
         button_envoyer.setOnClickListener {
             val ref = FirebaseDatabase.getInstance().getReference("/messages/${user?.id}/${user_chat?.id}").push()
             val ref2 = FirebaseDatabase.getInstance().getReference("/messages/${user_chat?.id}/${user?.id}").push()
+            val date = DateTimeTz.nowLocal()
+            val locale = KlockLocale.default
             val message = Messages()
             message.id_env = muser?.uid
             message.id_rec = user_chat.id
             message.lu = false
             message.message = edit_text_message_to_send.text.toString()
-            message.date=Dates.today.toString()
-            message.heure=Dates.today.time.toString()
+            message.date= locale.formatDateFull.format(date)
+            message.heure= locale.formatTimeMedium.format(date)
+            message.email=muser.email
 
             val message2 = Messages()
-            message2.id_env = user_chat.id
-            message2.id_rec = muser?.uid
+            message2.id_env =  muser?.uid
+            message2.id_rec = user_chat.id
             message2.lu = false
             message2.message = edit_text_message_to_send.text.toString()
-            message2.date=Dates.today.toString()
-            message2.heure=Dates.today.time.toString()
+            message2.date= locale.formatDateFull.format(date)
+            message2.heure= locale.formatTimeMedium.format(date)
+            message2.email=muser.email
 
             ref.setValue(message).addOnCompleteListener {
-                Toast.makeText(baseContext,"Done",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(baseContext,"Done",Toast.LENGTH_SHORT).show()
+            }.addOnCanceledListener {
+                Toast.makeText(baseContext,"Message non envoyé",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(baseContext,"Message non envoyé",Toast.LENGTH_SHORT).show()
             }
             ref2.setValue(message2).addOnCompleteListener {
-                Toast.makeText(baseContext,"Done2",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(baseContext,"Done2",Toast.LENGTH_SHORT).show()
                 edit_text_message_to_send.text.clear()
+            }.addOnCanceledListener {
+                Toast.makeText(baseContext,"Message non envoyé",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(baseContext,"Message non envoyé",Toast.LENGTH_SHORT).show()
             }
-
+           // fetchChatDialog()
         }
         //list_chat_c.adapter = adapter
 
@@ -80,14 +95,14 @@ class ChatActivity : AppCompatActivity() {
     private fun fetchChatDialog() {
 
         val ref = FirebaseDatabase.getInstance().getReference("/messages/${user?.id}/${user_chat?.id}")
-        Toast.makeText(baseContext,"/messages/${user?.id}/${user_chat?.id}",Toast.LENGTH_LONG).show()
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                Toast.makeText(baseContext,"pas ok",Toast.LENGTH_LONG).show()
+       // Toast.makeText(baseContext,"/messages/${user?.id}/${user_chat?.id}",Toast.LENGTH_LONG).show()
+        ref.addChildEventListener(object: ChildEventListener {
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+
             }
 
-            override fun onDataChange(p0: DataSnapshot) {
-                val adapter = GroupAdapter<ViewHolder>()
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                adapter = GroupAdapter<ViewHolder>()
                 p0.children.forEach {
                     val msg = it.getValue(Messages::class.java)
 
@@ -104,6 +119,31 @@ class ChatActivity : AppCompatActivity() {
 
                 }
                 list_chat_c.adapter = adapter
+                list_chat_c.scrollToPosition(p0.children.count())
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                val msg = p0.getValue(Messages::class.java)
+
+                //Toast.makeText(baseContext,"ok",Toast.LENGTH_LONG).show()
+                if (msg != null){
+                    if (msg.getId_env() == user?.id){
+                        adapter.add(ChatItemEnv(msg,user!!))
+                    }
+                    else{
+                        adapter.add(ChatItemRec(msg,user_chat))
+                    }
+                }
+                list_chat_c.adapter = adapter
+                list_chat_c.scrollToPosition(p0.children.count())
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                Toast.makeText(baseContext,"pas ok",Toast.LENGTH_LONG).show()
             }
 
         })
@@ -138,6 +178,7 @@ class ChatActivity : AppCompatActivity() {
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.textView_message.text = "${msg.message}"
             viewHolder.itemView.textView_date.text = "${msg.date} ${msg.heure}"
+            viewHolder.itemView.textView_pseudo.text = "${msg.email}"
             Glide.with(viewHolder.root.context).load(user_chat.profile).into(viewHolder.itemView.circleImageView_icon_chat_rec)
         }
 
@@ -151,6 +192,7 @@ class ChatActivity : AppCompatActivity() {
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.textView_message.text = "${msg.message}"
             viewHolder.itemView.textView_date.text = "${msg.date} ${msg.heure}"
+            viewHolder.itemView.textView_pseudo.text = "${msg.email}"
             Glide.with(viewHolder.root.context).load(user?.profile).into(viewHolder.itemView.circleImageView_icon_chat_env)
         }
 

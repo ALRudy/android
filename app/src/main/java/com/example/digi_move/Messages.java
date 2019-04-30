@@ -9,14 +9,24 @@ public class Messages implements Parcelable {
     String message;
     String date;
     String heure;
+    String email;
 
-    public Messages(String id_env, String id_rec, String message, String date, String heure, Boolean lu) {
+    public Messages(String id_env, String id_rec, String message, String date, String heure, String email, Boolean lu) {
         this.id_env = id_env;
         this.id_rec = id_rec;
         this.message = message;
         this.date = date;
         this.heure = heure;
+        this.email = email;
         this.lu = lu;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     Boolean lu;

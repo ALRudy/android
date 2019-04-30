@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Pair
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         auth = FirebaseAuth.getInstance()
