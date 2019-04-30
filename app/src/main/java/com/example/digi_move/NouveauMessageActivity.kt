@@ -9,7 +9,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -28,7 +27,7 @@ class NouveauMessageActivity : AppCompatActivity() {
 
 
 
-        list_users_nv_message.adapter = adapter
+        list_latest_message.adapter = adapter
 
         fetchUsers()
 
@@ -57,7 +56,7 @@ class NouveauMessageActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-                list_users_nv_message.adapter = adapter
+                list_latest_message.adapter = adapter
             }
 
         })
@@ -74,9 +73,9 @@ class UserItem(val user : Users) : Item<ViewHolder>(){
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textView_name_item_m.text = "${user.prenom} ${user.nom}"
-        viewHolder.itemView.textView_item_email_m.text = "${user.email}"
-        Glide.with(viewHolder.root.context).load(user?.profile).into(viewHolder.itemView.imageView_icon_item_m)
+        viewHolder.itemView.textView_name_message_seen.text = "${user.prenom} ${user.nom}"
+        viewHolder.itemView.textView_message_message_seen.text = "${user.email}"
+        Glide.with(viewHolder.root.context).load(user?.profile).into(viewHolder.itemView.imageView_icon_message_seen)
 
     }
 

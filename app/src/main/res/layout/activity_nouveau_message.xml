@@ -14,7 +14,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-                android:id="@+id/list_users_nv_message">
+                android:id="@+id/list_latest_message">
 
         </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

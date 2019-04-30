@@ -9,19 +9,20 @@
         android:paddingVertical="1dp"
         android:id="@+id/layout_item_m"
         android:layout_marginBottom="1dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:elevation="20dp">
 
     <TextView
             android:text="@string/user_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView_name_item_m"
-            app:layout_constraintStart_toEndOf="@+id/imageView_icon_item_m"
+            android:id="@+id/textView_name_message_seen"
+            app:layout_constraintStart_toEndOf="@+id/imageView_icon_message_seen"
             android:layout_marginStart="16dp"
             android:textColor="#2C2C2C"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="1dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView_icon_item_m"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_icon_message_seen"
             android:textSize="18sp"
             app:layout_constraintVertical_bias="0.15" android:textAlignment="center"/>
     <de.hdodenhof.circleimageview.CircleImageView
@@ -30,7 +31,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             tools:srcCompat="@tools:sample/avatars[1]"
-            android:id="@+id/imageView_icon_item_m"
+            android:id="@+id/imageView_icon_message_seen"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="2dp"
@@ -40,7 +41,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
-            android:id="@+id/textView_item_email_m"
-            app:layout_constraintStart_toStartOf="@+id/textView_name_item_m"
-            app:layout_constraintTop_toBottomOf="@+id/textView_name_item_m" android:textSize="12sp"/>
+            android:id="@+id/textView_message_message_seen"
+            app:layout_constraintStart_toStartOf="@+id/textView_name_message_seen"
+            app:layout_constraintTop_toBottomOf="@+id/textView_name_message_seen" android:textSize="12sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

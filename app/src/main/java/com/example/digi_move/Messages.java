@@ -4,23 +4,42 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Messages implements Parcelable {
+    String id_message;
     String id_env;
     String id_rec;
     String message;
     String date;
     String heure;
     String email;
+    String name;
 
-    public Messages(String id_env, String id_rec, String message, String date, String heure, String email, Boolean lu) {
+    public Messages(String id_message, String id_env, String id_rec, String message, String date, String heure, String email, String name, Boolean lu) {
+        this.id_message = id_message;
         this.id_env = id_env;
         this.id_rec = id_rec;
         this.message = message;
         this.date = date;
         this.heure = heure;
         this.email = email;
+        this.name = name;
         this.lu = lu;
     }
 
+    public String getId_message() {
+        return id_message;
+    }
+
+    public void setId_message(String id_message) {
+        this.id_message = id_message;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getEmail() {
         return email;
     }

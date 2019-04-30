@@ -49,10 +49,12 @@ class ChatActivity : AppCompatActivity() {
 
         button_envoyer.setOnClickListener {
             val ref = FirebaseDatabase.getInstance().getReference("/messages/${user?.id}/${user_chat?.id}").push()
-            val ref2 = FirebaseDatabase.getInstance().getReference("/messages/${user_chat?.id}/${user?.id}").push()
+            Toast.makeText(baseContext,ref.key,Toast.LENGTH_SHORT).show()
+            val ref2 = FirebaseDatabase.getInstance().getReference("/messages/${user_chat?.id}/${user?.id}/${ref.key}")
             val date = DateTimeTz.nowLocal()
             val locale = KlockLocale.default
             val message = Messages()
+            message.id_message = ref.key
             message.id_env = muser?.uid
             message.id_rec = user_chat.id
             message.lu = false
@@ -60,8 +62,10 @@ class ChatActivity : AppCompatActivity() {
             message.date= locale.formatDateFull.format(date)
             message.heure= locale.formatTimeMedium.format(date)
             message.email=muser.email
+            message.name="${user?.prenom} ${user?.prenom}"
 
             val message2 = Messages()
+            message2.id_message = ref.key
             message2.id_env =  muser?.uid
             message2.id_rec = user_chat.id
             message2.lu = false
@@ -69,6 +73,7 @@ class ChatActivity : AppCompatActivity() {
             message2.date= locale.formatDateFull.format(date)
             message2.heure= locale.formatTimeMedium.format(date)
             message2.email=muser.email
+            message2.name="${user?.prenom} ${user?.prenom}"
 
             ref.setValue(message).addOnCompleteListener {
                 //Toast.makeText(baseContext,"Done",Toast.LENGTH_SHORT).show()
