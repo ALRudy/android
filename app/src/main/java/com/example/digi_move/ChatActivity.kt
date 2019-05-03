@@ -57,12 +57,12 @@ class ChatActivity : AppCompatActivity() {
             message.id_message = ref.key
             message.id_env = muser?.uid
             message.id_rec = user_chat.id
-            message.lu = false
+            message.lu = true
             message.message = edit_text_message_to_send.text.toString()
-            message.date= locale.formatDateFull.format(date)
-            message.heure= locale.formatTimeMedium.format(date)
+            message.date= locale.formatDateMedium.format(date)
+            message.heure= locale.formatTimeShort.format(date)
             message.email=muser.email
-            message.name="${user?.prenom} ${user?.prenom}"
+            message.name="${user?.prenom} ${user?.nom}"
 
             val message2 = Messages()
             message2.id_message = ref.key
@@ -70,20 +70,22 @@ class ChatActivity : AppCompatActivity() {
             message2.id_rec = user_chat.id
             message2.lu = false
             message2.message = edit_text_message_to_send.text.toString()
-            message2.date= locale.formatDateFull.format(date)
-            message2.heure= locale.formatTimeMedium.format(date)
+            message2.date= locale.formatDateMedium.format(date)
+            message2.heure= locale.formatTimeShort.format(date)
             message2.email=muser.email
-            message2.name="${user?.prenom} ${user?.prenom}"
+            message2.name="${user?.prenom} ${user?.nom}"
 
             ref.setValue(message).addOnCompleteListener {
-                //Toast.makeText(baseContext,"Done",Toast.LENGTH_SHORT).show()
+                val ref1_1 = FirebaseDatabase.getInstance().getReference("/latest_messages/${user?.id}/${user_chat?.id}")
+                ref1_1.setValue(message)
             }.addOnCanceledListener {
                 Toast.makeText(baseContext,"Message non envoyé",Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(baseContext,"Message non envoyé",Toast.LENGTH_SHORT).show()
             }
             ref2.setValue(message2).addOnCompleteListener {
-                //Toast.makeText(baseContext,"Done2",Toast.LENGTH_SHORT).show()
+                val ref2_2 = FirebaseDatabase.getInstance().getReference("/latest_messages/${user_chat?.id}/${user?.id}")
+                ref2_2.setValue(message2)
                 edit_text_message_to_send.text.clear()
             }.addOnCanceledListener {
                 Toast.makeText(baseContext,"Message non envoyé",Toast.LENGTH_SHORT).show()
@@ -124,7 +126,7 @@ class ChatActivity : AppCompatActivity() {
 
                 }
                 list_chat_c.adapter = adapter
-                list_chat_c.scrollToPosition(p0.children.count())
+                list_chat_c.scrollToPosition(adapter.itemCount-1)
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
@@ -140,11 +142,28 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
                 list_chat_c.adapter = adapter
-                list_chat_c.scrollToPosition(p0.children.count())
+                list_chat_c.scrollToPosition(adapter.itemCount-1)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                adapter = GroupAdapter<ViewHolder>()
+                p0.children.forEach {
+                    val msg = it.getValue(Messages::class.java)
+
+                    Toast.makeText(baseContext,"ok",Toast.LENGTH_LONG).show()
+                    if (msg != null){
+                        if (msg.getId_env() == user?.id){
+                            adapter.add(ChatItemEnv(msg,user!!))
+                        }
+                        else{
+                            adapter.add(ChatItemRec(msg,user_chat))
+                        }
+                    }
+
+
+                }
+                list_chat_c.adapter = adapter
+                list_chat_c.scrollToPosition(adapter.itemCount-1)
             }
 
             override fun onCancelled(p0: DatabaseError) {

@@ -225,7 +225,8 @@ class PrincipalActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
 
             }
             R.id.itm_Messages -> {
-
+                val intent = Intent(this, MessagesActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 

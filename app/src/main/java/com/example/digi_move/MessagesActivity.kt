@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -14,8 +13,11 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_messages.*
-import kotlinx.android.synthetic.main.activity_planifier.*
-import kotlinx.android.synthetic.main.layout_message_seen.view.*
+import kotlinx.android.synthetic.main.layout_item_last_message.view.*
+import kotlinx.android.synthetic.main.user_item_layout.view.*
+import kotlinx.android.synthetic.main.user_item_layout.view.textView_message_last_message
+import kotlinx.android.synthetic.main.layout_item_last_message.view.imageView_icon_last_message as imageView_icon_last_message1
+import kotlinx.android.synthetic.main.layout_item_last_message.view.textView_name_last_message as textView_name_last_message1
 
 class MessagesActivity : AppCompatActivity() {
 
@@ -44,7 +46,23 @@ class MessagesActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    companion object{
+        var USER_CHAT = "USER_CHAT"
+    }
+    private fun refreshadapter() {
+        adapter.clear()
+        last_message_map.values.forEach {
+            adapter.add(MessageItemSeen(it))
+        }
+        adapter.setOnItemClickListener { item, view ->
+            val userItem = item as MessageItemSeen
+            val intent = Intent(view.context, ChatActivity::class.java)
 
+            intent.putExtra(USER_CHAT,userItem.user_chat)
+            startActivity(intent)
+        }
+    }
+    val last_message_map = HashMap<String,Messages>()
     private fun getMessages() {
 
         val ref = FirebaseDatabase.getInstance().getReference("/latest_messages/${user?.id}")
@@ -55,6 +73,28 @@ class MessagesActivity : AppCompatActivity() {
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                adapter = GroupAdapter<ViewHolder>()
+                val msg = p0.getValue(Messages::class.java)?:return
+
+                last_message_map[p0.key!!] = msg
+                refreshadapter()
+
+                list_latest_message.adapter = adapter
+                list_latest_message.scrollToPosition(0)
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                adapter = GroupAdapter<ViewHolder>()
+                val msg = p0.getValue(Messages::class.java)?:return
+
+                last_message_map[p0.key!!] = msg
+                refreshadapter()
+
+                list_latest_message.adapter = adapter
+                list_latest_message.scrollToPosition(0)
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
                 adapter = GroupAdapter<ViewHolder>()
                 p0.children.forEach {
                     val msg = it.getValue(Messages::class.java)
@@ -67,20 +107,7 @@ class MessagesActivity : AppCompatActivity() {
 
                 }
                 list_latest_message.adapter = adapter
-                list_latest_message.scrollToPosition(p0.children.count())
-            }
-
-            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                val msg = p0.getValue(Messages::class.java)
-
-                //Toast.makeText(baseContext,"ok",Toast.LENGTH_LONG).show()
-                adapter.add(MessageItemSeen(msg!!))
-                list_latest_message.adapter = adapter
-                list_latest_message.scrollToPosition(p0.children.count())
-            }
-
-            override fun onChildRemoved(p0: DataSnapshot) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                list_latest_message.scrollToPosition(0)
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -110,26 +137,41 @@ class MessagesActivity : AppCompatActivity() {
     class MessageItemSeen(val msg : Messages) : Item<ViewHolder>(){
         var user_chat : Users? = null
         override fun getLayout(): Int {
-            return R.layout.layout_chat_rec
+            return R.layout.layout_item_last_message
         }
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
-            user_chat = GetUserMessage(msg.id_env)
-            viewHolder.itemView.textView_message_message_seen.text = "${msg.message}"
-            viewHolder.itemView.textView_date_message_seen.text = "${msg.date} ${msg.heure}"
-            viewHolder.itemView.textView_name_message_seen.text = "${msg.email}"
-            Glide.with(viewHolder.root.context).load(user_chat?.profile).into(viewHolder.itemView.imageView_icon_message_seen)
+            val ref = FirebaseDatabase.getInstance().getReference("users/${msg.id_rec}")
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    user_chat = p0.getValue(Users::class.java)
+                    viewHolder.itemView.textView_name_last_message.text = "${user_chat?.prenom} ${user_chat?.nom}"
+                    Glide.with(viewHolder.root.context).load(user_chat?.profile).into(viewHolder.itemView.imageView_icon_last_message)
+                }
+
+            })
+            viewHolder.itemView.textView_message_last_message.text = ""
+            if (msg.id_env == FirebaseAuth.getInstance().currentUser?.uid){
+                viewHolder.itemView.textView_message_last_message.text = "vous : "
+            }
+            viewHolder.itemView.textView_message_last_message.text = viewHolder.itemView.textView_date_last_mesage.text.toString()+ "${msg.message}"
+            viewHolder.itemView.textView_date_last_mesage.text = "${msg.date} ${msg.heure}"
             if(!msg.lu)viewHolder.itemView.setBackgroundColor(Color.argb(89,255,234,234))
 
         }
 
-        private fun GetUserMessage(id_env: String?): Users? {
-            val ref = FirebaseDatabase.getInstance().getReference("users/${id_env}")
-            var user : Users? = null
+        private fun GetUserMessage(id_rec: String?): Users? {
+            val ref = FirebaseDatabase.getInstance().getReference("users/${id_rec}")
+            var user_chat : Users? = null
+
             val userListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get Post object and use the values to update the UI
-                    user = dataSnapshot.getValue(Users::class.java)
+                    user_chat = dataSnapshot.getValue(Users::class.java)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -137,7 +179,7 @@ class MessagesActivity : AppCompatActivity() {
                 }
             }
             ref.addListenerForSingleValueEvent(userListener)
-            return user
+            return user_chat
         }
 
     }

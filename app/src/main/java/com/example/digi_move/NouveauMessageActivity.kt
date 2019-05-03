@@ -73,9 +73,9 @@ class UserItem(val user : Users) : Item<ViewHolder>(){
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textView_name_message_seen.text = "${user.prenom} ${user.nom}"
-        viewHolder.itemView.textView_message_message_seen.text = "${user.email}"
-        Glide.with(viewHolder.root.context).load(user?.profile).into(viewHolder.itemView.imageView_icon_message_seen)
+        viewHolder.itemView.textView_name_last_message.text = "${user.prenom} ${user.nom}"
+        viewHolder.itemView.textView_message_last_message.text = "${user.email}"
+        Glide.with(viewHolder.root.context).load(user?.profile).into(viewHolder.itemView.imageView_icon_last_message)
 
     }
 
