@@ -7,4 +7,7 @@
     <color name="vert_clair">#CE686868</color>
     <color name="rouge">#CEB60000</color>
     <color name="rose">#F8C5002B</color>
+    <color name="place_green">#32009B62</color>
+    <color name="place_red">#329B0000</color>
+    <color name="place_gray">#32000000</color>
 </resources>
