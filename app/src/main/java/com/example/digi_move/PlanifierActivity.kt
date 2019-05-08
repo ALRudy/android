@@ -3,6 +3,7 @@ package com.example.digi_move
 import android.annotation.TargetApi
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -92,6 +93,11 @@ class PlanifierActivity : AppCompatActivity() {
                 mdepart = listregions.elementAt(position)
                 Toast.makeText(this@PlanifierActivity, mdepart, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        id_btn_places.setOnClickListener {
+            val intent = Intent(this, PlacesActivity::class.java)
+            startActivity(intent)
         }
     }
     fun getLieux(){

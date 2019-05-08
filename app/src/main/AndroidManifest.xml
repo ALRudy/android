@@ -23,10 +23,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:appComponentFactory">
+        <activity android:name=".PlacesActivity">
+        </activity>
         <activity android:name=".ChatActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                        android:value=".NouveauMessageActivity"/>
-
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".NouveauMessageActivity"/>
         </activity>
         <activity android:name=".NouveauMessageActivity">
         </activity>
