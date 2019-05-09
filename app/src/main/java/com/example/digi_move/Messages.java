@@ -12,9 +12,9 @@ public class Messages implements Parcelable {
     String heure;
     String email;
     String name;
+    String uid;
 
-
-    public Messages(String id_message, String id_env, String id_rec, String message, String date, String heure, String email, String name, Boolean lu) {
+    public Messages(String id_message, String id_env, String id_rec, String message, String date, String heure, String email, String name, String uid, Boolean lu) {
         this.id_message = id_message;
         this.id_env = id_env;
         this.id_rec = id_rec;
@@ -23,7 +23,16 @@ public class Messages implements Parcelable {
         this.heure = heure;
         this.email = email;
         this.name = name;
+        this.uid = uid;
         this.lu = lu;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getId_message() {

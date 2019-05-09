@@ -54,7 +54,8 @@ class ChatActivity : AppCompatActivity() {
             val date = DateTimeTz.nowLocal()
             val locale = KlockLocale.default
             val message = Messages()
-            message.id_message = ref.key
+            message.uid = ref.key
+            message.id_message = user_chat?.id
             message.id_env = muser?.uid
             message.id_rec = user_chat.id
             message.lu = true
@@ -65,7 +66,8 @@ class ChatActivity : AppCompatActivity() {
             message.name="${user?.prenom} ${user?.nom}"
 
             val message2 = Messages()
-            message2.id_message = ref.key
+            message2.uid = ref.key
+            message2.id_message = muser?.uid
             message2.id_env =  muser?.uid
             message2.id_rec = user_chat.id
             message2.lu = false
@@ -139,6 +141,7 @@ class ChatActivity : AppCompatActivity() {
                     }
                     else{
                         adapter.add(ChatItemRec(msg,user_chat))
+                        updateMessage(msg)
                     }
                 }
                 list_chat_c.adapter = adapter
@@ -147,23 +150,24 @@ class ChatActivity : AppCompatActivity() {
 
             override fun onChildRemoved(p0: DataSnapshot) {
                 adapter = GroupAdapter<ViewHolder>()
-                p0.children.forEach {
-                    val msg = it.getValue(Messages::class.java)
+                if(!p0.children.none()) {
+                    p0.children.forEach {
+                        val msg = it.getValue(Messages::class.java)
 
-                    Toast.makeText(baseContext,"ok",Toast.LENGTH_LONG).show()
-                    if (msg != null){
-                        if (msg.getId_env() == user?.id){
-                            adapter.add(ChatItemEnv(msg,user!!))
+                        Toast.makeText(baseContext, "ok", Toast.LENGTH_LONG).show()
+                        if (msg != null) {
+                            if (msg.getId_env() == user?.id) {
+                                adapter.add(ChatItemEnv(msg, user!!))
+                            } else {
+                                adapter.add(ChatItemRec(msg, user_chat))
+                            }
                         }
-                        else{
-                            adapter.add(ChatItemRec(msg,user_chat))
-                        }
+
+
                     }
-
-
+                    list_chat_c.adapter = adapter
+                    list_chat_c.scrollToPosition(adapter.itemCount - 1)
                 }
-                list_chat_c.adapter = adapter
-                list_chat_c.scrollToPosition(adapter.itemCount-1)
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -171,6 +175,14 @@ class ChatActivity : AppCompatActivity() {
             }
 
         })
+    }
+    private fun updateMessage(msg: Messages) {
+        msg.lu=true
+        val ref1_1 = FirebaseDatabase.getInstance().getReference("/latest_messages/${user?.id}/${msg.id_message}")
+        ref1_1.setValue(msg)
+        val ref1_2 = FirebaseDatabase.getInstance().getReference("/latest_messages/${msg.id_message}/${user?.id}")
+        msg.id_message=user?.id
+        ref1_2.setValue(msg)
     }
     fun get_user(){
 

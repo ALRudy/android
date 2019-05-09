@@ -114,7 +114,7 @@ class EditionInfoActivity : AppCompatActivity() {
         val myBitmap = bitmaprotate.HandleSamplingAndRotationBitmap(applicationContext,uri)
         myBitmap?.compress(Bitmap.CompressFormat.JPEG, 50, bytes)
         val wallpaperDirectory = File(
-            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+            (Environment.getDownloadCacheDirectory().toString() ))
         // have the object build the directory structure, if needed.
         println(wallpaperDirectory.toString())
         if (!wallpaperDirectory.exists())
@@ -126,7 +126,7 @@ class EditionInfoActivity : AppCompatActivity() {
         try
         {
             println(wallpaperDirectory.toString())
-            val f = File(wallpaperDirectory, ((Calendar.getInstance()
+            val f = File("/storage/emulated/0/Pictures", ((Calendar.getInstance()
                 .getTimeInMillis()).toString() + ".jpg"))
             f.createNewFile()
             val fo = FileOutputStream(f)

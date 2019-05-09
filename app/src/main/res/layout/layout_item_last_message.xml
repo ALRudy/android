@@ -38,6 +38,7 @@
             android:layout_marginTop="2dp"
             app:layout_constraintTop_toTopOf="parent"/>
     <TextView
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:id="@+id/textView_message_last_message"

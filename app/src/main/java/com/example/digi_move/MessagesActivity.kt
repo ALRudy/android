@@ -57,11 +57,24 @@ class MessagesActivity : AppCompatActivity() {
         adapter.setOnItemClickListener { item, view ->
             val userItem = item as MessageItemSeen
             val intent = Intent(view.context, ChatActivity::class.java)
+            if (!userItem.msg.lu){
+                updateMessage(userItem.msg)
+            }
 
             intent.putExtra(USER_CHAT,userItem.user_chat)
             startActivity(intent)
         }
     }
+
+    private fun updateMessage(msg: Messages) {
+        msg.lu=true
+        val ref1_1 = FirebaseDatabase.getInstance().getReference("/latest_messages/${user?.id}/${msg.id_message}")
+        ref1_1.setValue(msg)
+        val ref1_2 = FirebaseDatabase.getInstance().getReference("/latest_messages/${msg.id_message}/${user?.id}")
+        msg.id_message=user?.id
+        ref1_2.setValue(msg)
+    }
+
     val last_message_map = HashMap<String,Messages>()
     private fun getMessages() {
 
@@ -96,18 +109,21 @@ class MessagesActivity : AppCompatActivity() {
 
             override fun onChildRemoved(p0: DataSnapshot) {
                 adapter = GroupAdapter<ViewHolder>()
-                p0.children.forEach {
-                    val msg = it.getValue(Messages::class.java)
+                if(!p0.children.none()){
+                    p0.children.forEach {
+                        val msg = it.getValue(Messages::class.java)
 
-                    //Toast.makeText(baseContext,"ok", Toast.LENGTH_LONG).show()
-                    if (msg != null){
-                        adapter.add(MessageItemSeen(msg))
+                        //Toast.makeText(baseContext,"ok", Toast.LENGTH_LONG).show()
+                        if (msg != null){
+                            adapter.add(MessageItemSeen(msg))
+                        }
+
+
                     }
-
-
+                    list_latest_message.adapter = adapter
+                    list_latest_message.scrollToPosition(0)
                 }
-                list_latest_message.adapter = adapter
-                list_latest_message.scrollToPosition(0)
+
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -141,7 +157,7 @@ class MessagesActivity : AppCompatActivity() {
         }
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
-            val ref = FirebaseDatabase.getInstance().getReference("users/${msg.id_rec}")
+            val ref = FirebaseDatabase.getInstance().getReference("users/${msg.id_message}")
             ref.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -154,13 +170,14 @@ class MessagesActivity : AppCompatActivity() {
                 }
 
             })
-            viewHolder.itemView.textView_message_last_message.text = ""
+            var txt = ""
             if (msg.id_env == FirebaseAuth.getInstance().currentUser?.uid){
-                viewHolder.itemView.textView_message_last_message.text = "vous : "
+                txt = "vous : "
             }
-            viewHolder.itemView.textView_message_last_message.text = viewHolder.itemView.textView_date_last_mesage.text.toString()+ "${msg.message}"
+            txt += msg.message
+            viewHolder.itemView.textView_message_last_message.text = txt
             viewHolder.itemView.textView_date_last_mesage.text = "${msg.date} ${msg.heure}"
-            if(!msg.lu)viewHolder.itemView.setBackgroundColor(Color.argb(89,255,234,234))
+            if(msg.lu)viewHolder.itemView.setBackgroundColor(Color.argb(89,255,234,234))
 
         }
 
