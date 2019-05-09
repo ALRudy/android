@@ -57,12 +57,13 @@ class MessagesActivity : AppCompatActivity() {
         adapter.setOnItemClickListener { item, view ->
             val userItem = item as MessageItemSeen
             val intent = Intent(view.context, ChatActivity::class.java)
+
+            intent.putExtra(USER_CHAT,userItem.user_chat)
+            startActivity(intent)
             if (!userItem.msg.lu){
                 updateMessage(userItem.msg)
             }
 
-            intent.putExtra(USER_CHAT,userItem.user_chat)
-            startActivity(intent)
         }
     }
 

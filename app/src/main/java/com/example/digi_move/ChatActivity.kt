@@ -122,6 +122,7 @@ class ChatActivity : AppCompatActivity() {
                         }
                         else{
                             adapter.add(ChatItemRec(msg,user_chat))
+                            updateMessage(msg)
                         }
                     }
 
@@ -180,9 +181,7 @@ class ChatActivity : AppCompatActivity() {
         msg.lu=true
         val ref1_1 = FirebaseDatabase.getInstance().getReference("/latest_messages/${user?.id}/${msg.id_message}")
         ref1_1.setValue(msg)
-        val ref1_2 = FirebaseDatabase.getInstance().getReference("/latest_messages/${msg.id_message}/${user?.id}")
-        msg.id_message=user?.id
-        ref1_2.setValue(msg)
+
     }
     fun get_user(){
 
