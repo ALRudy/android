@@ -20,6 +20,5 @@
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/img_logo"
-            android:background="@drawable/bg_digi_770"
-    />
+            android:background="@drawable/logo_test"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
