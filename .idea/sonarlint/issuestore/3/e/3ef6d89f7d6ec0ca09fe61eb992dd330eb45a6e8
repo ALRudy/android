@@ -1,0 +1,12 @@
+
+Skotlin:S1144¹"3Remove this unused private "GetUserMessage" method.(òüÃò8¢×óÏ©-
+pkotlin:S117J"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(ÊØ®¡8¢×óÏ©-
+zkotlin:S1186Ã"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8à¾óÏ©-
+~kotlin:S1186U"ZAdd a nested comment explaining why this function is empty or complete the implementation.(íç‰µûÿÿÿÿ8à¾óÏ©-
+qkotlin:S117»"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(¸Çí…8¢×óÏ©-
+zkotlin:S1186“"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8à¾óÏ©-
+skotlin:S100¹"TRename function "GetUserMessage" to match the regular expression ^[a-z][a-zA-Z0-9]*$(òüÃò8¢×óÏ©-
+lkotlin:S117¹"MRename this parameter to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(òüÃò8¢×óÏ©-
+kotlin:S4144d"`Update this function so that its implementation is not identical to "onChildChanged" on line 89.(¶ë¿8¢×óÏ©-
+pkotlin:S117H"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(«„‘ø8¢×óÏ©-
+mkotlin:S100ˆ"NRename function "get_user" to match the regular expression ^[a-z][a-zA-Z0-9]*$(„­£ê8¢×óÏ©-
