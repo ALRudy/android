@@ -16,10 +16,7 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_principal.*
@@ -45,17 +42,17 @@ class PrincipalActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
         item.add(Orga_Class())
         item.add(Orga_Class())
         list_accueil.adapter = item
-        var i = 0
+
         icon_messages.setOnClickListener {
-            badge_messages.animationDuration = 1
-            badge_messages.setNumber(++i)
+
         }
+
         var j = 0
         icon_notifications.setOnClickListener {
             badge_notifications.animationDuration = 1
             badge_notifications.setNumber(++j)
         }
-
+        getMessagesNotification()
       /*  fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -85,8 +82,62 @@ class PrincipalActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
         icon_messages.setOnClickListener {
             val intent = Intent(this, MessagesActivity::class.java)
             startActivity(intent)
+            //getMessagesNotification()
         }
 
+    }
+
+    private fun getMessagesNotification() {
+
+        val ref = FirebaseDatabase.getInstance().getReference("/latest_messages/${auth.currentUser?.uid}")
+
+        ref.addChildEventListener(object: ChildEventListener {
+            var i = 0
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                if(!p0.children.none()){
+                    i = 0
+                    p0.children.forEach {
+                        val msg = p0.getValue(Messages::class.java)?:return
+
+                        //Toast.makeText(baseContext,"ok", Toast.LENGTH_LONG).show()
+                        if (msg != null){
+                            ///Toast.makeText(baseContext,"changed : ${msg.message}", Toast.LENGTH_SHORT).show()
+                            if(!msg.lu){
+                                badge_messages.setNumber(++i)
+                                println("-----------00000000000------------------${i}  ${msg.message}")
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+               // badge_messages.animationDuration = i
+                val msg = p0.getValue(Messages::class.java)?:return
+                if (msg != null){
+                    //Toast.makeText(baseContext,"added : ${msg.message}", Toast.LENGTH_SHORT).show()
+                    if(!msg.lu){
+                        badge_messages.setNumber(i++)
+                        println("-----------------------------${i}  ${msg.message}")
+                    }
+                }
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                Toast.makeText(baseContext,"pas ok", Toast.LENGTH_LONG).show()
+            }
+
+        })
     }
 
     fun get_user(context : Context){
@@ -101,6 +152,7 @@ class PrincipalActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
                 txt_mail.text = "${user?.email}"
                 if (user?.profile != null || user?.profile != ""){
                     Glide.with(baseContext).load(user?.profile).into(imageView)
+                    Glide.with(baseContext).load(user?.profile).into(imageView_icon_profile)
                     //BlurImage.with(applicationContext).load(imageView.toBitmap(Bitmap.Config.ARGB_8888)).intensity(20.toFloat()).Async(true).into(header_nav.background)
                 }
 

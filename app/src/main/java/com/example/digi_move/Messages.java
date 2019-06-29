@@ -13,6 +13,7 @@ public class Messages implements Parcelable {
     String email;
     String name;
     String uid;
+    Boolean lu;
 
     public Messages(String id_message, String id_env, String id_rec, String message, String date, String heure, String email, String name, String uid, Boolean lu) {
         this.id_message = id_message;
@@ -58,7 +59,7 @@ public class Messages implements Parcelable {
         this.email = email;
     }
 
-    Boolean lu;
+
     public  Messages(){
 
     }

@@ -71,3 +71,5 @@ W
 'app/src/main/res/drawable/splash_bg.xml,a\6\a62b5fccd64207cd7dea0db9462168c9ca51fa4e
 [
 +app/src/main/res/layout/activity_splash.xml,1\3\13b26b9b6631cddf289c5ab7c4e546a180da97d8
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0

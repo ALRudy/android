@@ -30,7 +30,9 @@ class NouveauMessageActivity : AppCompatActivity() {
         list_latest_message.adapter = adapter
 
         fetchUsers()
-
+        imageView_retour_planifier.setOnClickListener {
+            finish()
+        }
     }
 
     private fun fetchUsers() {

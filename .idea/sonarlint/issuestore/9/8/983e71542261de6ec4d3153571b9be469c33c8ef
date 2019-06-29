@@ -1,11 +1,11 @@
 
+psquid:S00117+"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä¥¼Û8ðÉ·¨¹-
+psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢èäº8ðÉ·¨¹-
+asquid:S00107"BConstructor has 10 parameters, which is greater than 7 authorized.(¢èäº8ðÉ·¨¹-
 ysquid:S00116"URename this field "id_message" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ª®Ê¥úÿÿÿÿ8€¢¸Õ§-
-psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢èäº8Ä™ãÎ©-
-psquid:S00116"QRename this field "id_env" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ª–±²8Íø‚‰¦-
-psquid:S00117*"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä¥¼Û8€¢¸Õ§-
+usquid:S00117R"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹ºª÷ýÿÿÿÿ8ðÉ·¨¹-
 usquid:S00116	"QRename this field "id_rec" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€§ºÁùÿÿÿÿ8Íø‚‰¦-
-usquid:S00117Y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÃ·­øÿÿÿÿ8Íø‚‰¦-
-asquid:S00107"BConstructor has 10 parameters, which is greater than 7 authorized.(¢èäº8Ä™ãÎ©-
-psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢èäº8Ä™ãÎ©-
-usquid:S00117Q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹ºª÷ýÿÿÿÿ8Íø‚‰¦-
-psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢èäº8Ä™ãÎ©-
+psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢èäº8ðÉ·¨¹-
+psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢èäº8ðÉ·¨¹-
+psquid:S00116"QRename this field "id_env" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ª–±²8Íø‚‰¦-
+usquid:S00117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÃ·­øÿÿÿÿ8ðÉ·¨¹-

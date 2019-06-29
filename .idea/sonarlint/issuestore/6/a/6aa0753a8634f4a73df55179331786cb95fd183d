@@ -1,11 +1,12 @@
 
-=kotlin:S125/"Remove this commented out code.(¬¶¥8áóôÓ¦-
-skotlin:S1192T"TDefine a constant instead of duplicating this literal "Message non envoyÃ©" 4 times.(³ìÜÃ8ÄˆØØ¦-
-mkotlin:S100º"NRename function "get_user" to match the regular expression ^[a-z][a-zA-Z0-9]*$(„­£ê8áóôÓ¦-
-Bkotlin:S125a"Remove this commented out code.(ƒÊÖøÿÿÿÿ8ùâ¦Ù¦-
 ukotlin:S117Y"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(©–ëÁùÿÿÿÿ8ÎÕ§Ó§-
-~kotlin:S1186m"ZAdd a nested comment explaining why this function is empty or complete the implementation.(íç‰µûÿÿÿÿ8¦‘øØ¦-
-qkotlin:S3776h"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(‰©İŠ8Ë“ôÒ§-
-zkotlin:S1186Å"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8ëîÖŠ¦-
+=kotlin:S125/"Remove this commented out code.(¬¶¥8áóôÓ¦-
+Bkotlin:S125a"Remove this commented out code.(ƒÊÖøÿÿÿÿ8ùâ¦Ù¦-
+skotlin:S1192T"TDefine a constant instead of duplicating this literal "Message non envoyÃ©" 4 times.(³ìÜÃ8ÄˆØØ¦-
+mkotlin:S100¼"NRename function "get_user" to match the regular expression ^[a-z][a-zA-Z0-9]*$(„­£ê8áóôÓ¦-
+zkotlin:S1186Ç"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8ëîÖŠ¦-
+=kotlin:S125"Remove this commented out code.(¥ì‹¬8ş†È¤¹-
 pkotlin:S117Q"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(Àî· 8û–Ó§-
-qkotlin:S117¶"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(«„‘ø8”Ô‰Ï©-
+Ckotlin:S125›"Remove this commented out code.(Ä™ˆ¿ùÿÿÿÿ8ğ°–¨¹-
+~kotlin:S1186o"ZAdd a nested comment explaining why this function is empty or complete the implementation.(íç‰µûÿÿÿÿ8¦‘øØ¦-
+vkotlin:S117¸"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(ı‰¡·øÿÿÿÿ8”Ô‰Ï©-

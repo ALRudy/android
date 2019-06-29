@@ -42,6 +42,10 @@ class PlanifierActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
 
+        imageView_retour_planifier.setOnClickListener {
+            finish()
+        }
+
         btn_date_pick.setOnClickListener {
 
             val dpd = DatePickerDialog(

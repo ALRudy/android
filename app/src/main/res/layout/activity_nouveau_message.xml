@@ -6,15 +6,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".NouveauMessageActivity"
-        android:background="@drawable/fond_chat">
+        android:background="@color/pdlg_color_black">
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:layout_height="65dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                android:id="@+id/constraintLayout2" android:background="@drawable/splash_bg">
+                <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" app:srcCompat="@drawable/awsb_ic_arrow_back_white_24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/imageView-retour_planifier"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
+                <TextView
+                        android:text="nouveau message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/textView4" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="32dp"
+                        app:layout_constraintStart_toEndOf="@+id/imageView-retour_planifier"
+                        android:layout_marginStart="8dp" android:textColor="@color/browser_actions_bg_grey"
+                        android:textAlignment="center" android:textSize="18sp" android:fontFamily="sans-serif-light"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-                android:id="@+id/list_latest_message">
+                android:id="@+id/list_latest_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_height="0dp" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp">
 
         </androidx.recyclerview.widget.RecyclerView>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:layout_constraintGuide_begin="50dp"
+                android:id="@+id/guideline2" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

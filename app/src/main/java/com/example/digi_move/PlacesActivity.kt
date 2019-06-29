@@ -12,16 +12,19 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import java.util.ArrayList
 import java.util.function.Consumer
 
 class PlacesActivity : AppCompatActivity() {
-
+    private lateinit var auth: FirebaseAuth
+    var user : Users? = null
     var type_place = "0,1,1;1,1,0;1,1,1;1,1,1"
     @TargetApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
+        auth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_places)
         val list_places = getlistplace(type_place)
@@ -42,35 +45,51 @@ class PlacesActivity : AppCompatActivity() {
         }
         return  list
     }
-    class PlaceItemDispo(val msg : Messages) : Item<ViewHolder>() {
-        var user_chat: Users? = null
+    class Ranger(val str : String,val user : String ) : Item<ViewHolder>() {
+
+        override fun getLayout(): Int {
+            return R.layout.layout_rangers
+        }
+
+        override fun bind(viewHolder: ViewHolder, position: Int) {
+            var list = listOf<List<String>>().toMutableList()
+            var lignes = str.split(',')
+            var item = GroupAdapter<ViewHolder>()
+            for (l in lignes){
+                if (l.equals("0")){
+                    item.add(PlaceItemNoUsed())
+                }
+                if (l.equals("1")){
+                    item.add(PlaceItemDispo(user))
+                }
+            }
+
+        }
+    }
+    class PlaceItemDispo(val user : String) : Item<ViewHolder>() {
+
         override fun getLayout(): Int {
             return R.layout.layout_place_voit_dispo
         }
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
-            val ref = FirebaseDatabase.getInstance().getReference("users/${msg.id_rec}")
-            ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
 
-                override fun onDataChange(p0: DataSnapshot) {
-                    user_chat = p0.getValue(Users::class.java)
-                }
-
-            })
+            viewHolder.itemView.setOnClickListener {
+                Toast.makeText(viewHolder.root.context,"libre pour ${user}", Toast.LENGTH_SHORT).show()
+            }
 
         }
     }
-    class PlaceItemNoUsed(val msg : Messages) : Item<ViewHolder>() {
-        var user_chat: Users? = null
+    class PlaceItemNoUsed() : Item<ViewHolder>() {
+
         override fun getLayout(): Int {
             return R.layout.layout_place_voit_vide
         }
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
-
+            viewHolder.itemView.setOnClickListener {
+                Toast.makeText(viewHolder.root.context,"vide", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -5,44 +5,41 @@
                                                    android:layout_height="wrap_content"
                                                    android:layout_marginBottom="1dp">
     <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:civ_border_width="2dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:civ_border_width="0dp"
             app:civ_border_color="#E2E9E9E9"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/circleImageView_icon_chat_env"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"/>
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/default_icon_profile"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:maxWidth="200dp"
             android:background="@drawable/bg_chat_red"
-            android:padding="8dp"
             android:textColor="#F3F3F3"
             android:layout_height="wrap_content"
-            android:minHeight="44dp"
+            android:minHeight="30dp"
             android:id="@+id/textView_message"
             app:layout_constraintEnd_toStartOf="@+id/circleImageView_icon_chat_env"
-            android:layout_marginEnd="12dp" app:layout_constraintTop_toTopOf="@+id/circleImageView_icon_chat_env"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent" android:textSize="12sp"
-            app:layout_constraintVertical_bias="0.0"/>
+            android:layout_marginEnd="12dp"
+            app:layout_constraintTop_toTopOf="@+id/circleImageView_icon_chat_env"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18sp"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp" android:fontFamily="sans-serif-light"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:textColor="#F3F3F3"
             android:id="@+id/textView_date" android:textSize="8sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView_message"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="@+id/textView_message"
-            android:layout_marginEnd="8dp"/>
-    <TextView
-            android:text="TextView"
-            android:textColor="#F3F3F3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_pseudo" app:layout_constraintEnd_toEndOf="@+id/textView_message"
-            android:layout_marginEnd="8dp" app:layout_constraintTop_toBottomOf="@+id/textView_message"
-            android:textSize="10sp"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView_message"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

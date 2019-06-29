@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".SplashActivity"
-        android:background="@drawable/splash_bg">
+        android:background="@color/pdlg_color_black">
     <de.hdodenhof.circleimageview.CircleImageView
             android:transitionName="logo_img"
             android:layout_width="250dp"

@@ -71,9 +71,10 @@ class MessagesActivity : AppCompatActivity() {
         msg.lu=true
         val ref1_1 = FirebaseDatabase.getInstance().getReference("/latest_messages/${user?.id}/${msg.id_message}")
         ref1_1.setValue(msg)
-        val ref1_2 = FirebaseDatabase.getInstance().getReference("/latest_messages/${msg.id_message}/${user?.id}")
-        msg.id_message=user?.id
-        ref1_2.setValue(msg)
+        //val ref1_2 = FirebaseDatabase.getInstance().getReference("/latest_messages/${msg.id_message}/${user?.id}")
+        //msg.id_message=user?.id
+        //ref1_2.setValue(msg)
+        getMessages()
     }
 
     val last_message_map = HashMap<String,Messages>()
@@ -178,7 +179,9 @@ class MessagesActivity : AppCompatActivity() {
             txt += msg.message
             viewHolder.itemView.textView_message_last_message.text = txt
             viewHolder.itemView.textView_date_last_mesage.text = "${msg.date} ${msg.heure}"
-            if(msg.lu)viewHolder.itemView.setBackgroundColor(Color.argb(89,255,234,234))
+            if(!msg.lu){
+                viewHolder.itemView.imageView_point_new_message.setBackgroundResource(R.drawable.point_new_message)
+            } //.setBackgroundColor(Color.argb(89,255,234,234))
 
         }
 
