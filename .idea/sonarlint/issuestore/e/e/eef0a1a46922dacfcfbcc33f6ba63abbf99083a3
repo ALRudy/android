@@ -1,11 +1,11 @@
 
 ;kotlin:S125y"Remove this commented out code.(Ì…øìşÿÿÿÿ
-nkotlin:S100n"WRename function "validation_dialog" to match the regular expression ^[a-z][a-zA-Z0-9]*$(¿ÒÚğ
-6kotlin:S125^"Remove this commented out code.(¢ü´ì
-kkotlin:S100S"TRename function "delete_account" to match the regular expression ^[a-z][a-zA-Z0-9]*$(şüò›
 gkotlin:S101"KRename class "accueil" to match the regular expression ^[A-Z][a-zA-Z0-9]*$.(ŠÌ”øÿÿÿÿ
-Ekotlin:S1172n"-Remove this unused function parameter "user".(¿ÒÚğ
-rkotlin:S1186>"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ
 6kotlin:S125 "Remove this commented out code.(úÅú¶
 Kkotlin:S1066b".Merge this "if" statement with the nested one.(¤¥Î¡ÿÿÿÿÿ
+rkotlin:S1186>"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ
+6kotlin:S125^"Remove this commented out code.(¢ü´ì
+kkotlin:S100S"TRename function "delete_account" to match the regular expression ^[a-z][a-zA-Z0-9]*$(şüò›
+nkotlin:S100n"WRename function "validation_dialog" to match the regular expression ^[a-z][a-zA-Z0-9]*$(¿ÒÚğ
+Ekotlin:S1172n"-Remove this unused function parameter "user".(¿ÒÚğ
 ekotlin:S100-"NRename function "get_user" to match the regular expression ^[a-z][a-zA-Z0-9]*$(›²Ó

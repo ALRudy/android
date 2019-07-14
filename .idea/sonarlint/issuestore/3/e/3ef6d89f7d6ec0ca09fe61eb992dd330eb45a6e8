@@ -1,12 +1,12 @@
 
-zkotlin:S1186”"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8à¾óÏ©-
+pkotlin:S117H"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(«„‘ø8¢×óÏ©-
+skotlin:S100¼"TRename function "GetUserMessage" to match the regular expression ^[a-z][a-zA-Z0-9]*$(òüÃò8¢×óÏ©-
+zkotlin:S1186Æ"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8à¾óÏ©-
+~kotlin:S1186V"ZAdd a nested comment explaining why this function is empty or complete the implementation.(íç‰µûÿÿÿÿ8à¾óÏ©-
+Bkotlin:S125J"Remove this commented out code.(™òøØûÿÿÿÿ8¾¨à£¹-
 qkotlin:S117¾"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(¸Çí…8¢×óÏ©-
 lkotlin:S117¼"MRename this parameter to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(òüÃò8¢×óÏ©-
-pkotlin:S117H"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(«„‘ø8¢×óÏ©-
-Bkotlin:S125J"Remove this commented out code.(™òøØûÿÿÿÿ8¾¨à£¹-
-kotlin:S4144e"`Update this function so that its implementation is not identical to "onChildChanged" on line 90.(¶ë¿8¢×óÏ©-
-mkotlin:S100‰"NRename function "get_user" to match the regular expression ^[a-z][a-zA-Z0-9]*$(„­£ê8¢×óÏ©-
-zkotlin:S1186Æ"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8à¾óÏ©-
-skotlin:S100¼"TRename function "GetUserMessage" to match the regular expression ^[a-z][a-zA-Z0-9]*$(òüÃò8¢×óÏ©-
-~kotlin:S1186V"ZAdd a nested comment explaining why this function is empty or complete the implementation.(íç‰µûÿÿÿÿ8à¾óÏ©-
 Skotlin:S1144¼"3Remove this unused private "GetUserMessage" method.(òüÃò8¢×óÏ©-
+kotlin:S4144e"`Update this function so that its implementation is not identical to "onChildChanged" on line 90.(¶ë¿8¢×óÏ©-
+zkotlin:S1186”"ZAdd a nested comment explaining why this function is empty or complete the implementation.(—ô¸µ8à¾óÏ©-
+mkotlin:S100‰"NRename function "get_user" to match the regular expression ^[a-z][a-zA-Z0-9]*$(„­£ê8¢×óÏ©-

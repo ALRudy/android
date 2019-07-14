@@ -1,7 +1,7 @@
 
-6kotlin:S125d"Remove this commented out code.(¢ü´ì
-Ekotlin:S1087")Either remove or fill this block of code.( í¯ÿÿÿÿÿ
-6kotlin:S1256"Remove this commented out code.(¢ü´ì
-okotlin:S37760"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(Ù®õõùÿÿÿÿ
 Kkotlin:S1066:".Merge this "if" statement with the nested one.(¤¥Î¡ÿÿÿÿÿ
 pkotlin:S1000"TRename function "signin_account" to match the regular expression ^[a-z][a-zA-Z0-9]*$(Ù®õõùÿÿÿÿ
+okotlin:S37760"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(Ù®õõùÿÿÿÿ
+Ekotlin:S1087")Either remove or fill this block of code.( í¯ÿÿÿÿÿ
+6kotlin:S125d"Remove this commented out code.(¢ü´ì
+6kotlin:S1256"Remove this commented out code.(¢ü´ì

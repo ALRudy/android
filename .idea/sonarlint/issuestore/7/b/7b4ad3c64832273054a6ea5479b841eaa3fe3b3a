@@ -1,19 +1,19 @@
 
-Pkotlin:S1135ö"2Complete the task associated to this TODO comment.(ÉÓÈìıÿÿÿÿ
-Akotlin:S108º")Either remove or fill this block of code.(ÌùÀò
-<kotlin:S125³"Remove this commented out code.(ú¥á÷ûÿÿÿÿ
+pkotlin:S3776ÿ"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(Ù®õõùÿÿÿÿ
 kkotlin:S100÷"SRename function "signIn_google" to match the regular expression ^[a-z][a-zA-Z0-9]*$(¯ï÷»
 ckotlin:S1192©"JDefine a constant instead of duplicating this literal "#FF040814" 3 times.(ğß‚¡
-xkotlin:S1186’"ZAdd a nested comment explaining why this function is empty or complete the implementation.(·Í¥ûÿÿÿÿ
-kkotlin:S3776Ğ"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ãíì
-Kkotlin:S1135Ã"2Complete the task associated to this TODO comment.(¼í 
-Kkotlin:S1135±"2Complete the task associated to this TODO comment.(Ö¾ã¯
-qkotlin:S100ÿ"TRename function "signin_account" to match the regular expression ^[a-z][a-zA-Z0-9]*$(Ù®õõùÿÿÿÿ
-pkotlin:S3776ÿ"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(Ù®õõùÿÿÿÿ
-Gkotlin:S1066Ã".Merge this "if" statement with the nested one.(£ÁŞ°
-vkotlin:S100‹"^Rename function "check_if_first_connexion" to match the regular expression ^[a-z][a-zA-Z0-9]*$(ÓïŠ…
-okotlin:S100¥"WRename function "validation_dialog" to match the regular expression ^[a-z][a-zA-Z0-9]*$(¿ÒÚğ
-rkotlin:S100Í"URename function "signIn_facebook" to match the regular expression ^[a-z][a-zA-Z0-9]*$(ã¨¦Ÿşÿÿÿÿ
-;kotlin:S125K"Remove this commented out code.(şçŸßûÿÿÿÿ
-Kkotlin:S1135È"2Complete the task associated to this TODO comment.(¼í 
 5kotlin:S125>"Remove this commented out code.(µşøG
+;kotlin:S125K"Remove this commented out code.(şçŸßûÿÿÿÿ
+Pkotlin:S1135ö"2Complete the task associated to this TODO comment.(ÉÓÈìıÿÿÿÿ
+qkotlin:S100ÿ"TRename function "signin_account" to match the regular expression ^[a-z][a-zA-Z0-9]*$(Ù®õõùÿÿÿÿ
+Kkotlin:S1135Ã"2Complete the task associated to this TODO comment.(¼í 
+xkotlin:S1186’"ZAdd a nested comment explaining why this function is empty or complete the implementation.(·Í¥ûÿÿÿÿ
+okotlin:S100¥"WRename function "validation_dialog" to match the regular expression ^[a-z][a-zA-Z0-9]*$(¿ÒÚğ
+Kkotlin:S1135È"2Complete the task associated to this TODO comment.(¼í 
+kkotlin:S3776Ğ"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ãíì
+<kotlin:S125³"Remove this commented out code.(ú¥á÷ûÿÿÿÿ
+vkotlin:S100‹"^Rename function "check_if_first_connexion" to match the regular expression ^[a-z][a-zA-Z0-9]*$(ÓïŠ…
+rkotlin:S100Í"URename function "signIn_facebook" to match the regular expression ^[a-z][a-zA-Z0-9]*$(ã¨¦Ÿşÿÿÿÿ
+Gkotlin:S1066Ã".Merge this "if" statement with the nested one.(£ÁŞ°
+Akotlin:S108º")Either remove or fill this block of code.(ÌùÀò
+Kkotlin:S1135±"2Complete the task associated to this TODO comment.(Ö¾ã¯
